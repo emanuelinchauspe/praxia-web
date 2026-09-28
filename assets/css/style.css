@@ -338,16 +338,19 @@ p {
 }
 
 .hero-copy {
-  max-width: 480px;
+  max-width: 540px;
 }
 
+/* Tope más bajo que el h1 global para que "Todo tu consultorio," entre en
+   una línea sin pisar la receta de la foto. */
 .hero-copy h1 {
   margin-bottom: 22px;
+  font-size: clamp(2.5rem, 1.5rem + 2.8vw, 3.4rem);
 }
 
 .hero-copy .lede {
   margin-bottom: 32px;
-  max-width: 42ch;
+  max-width: 480px;
   color: var(--color-text-muted);
 }
 
