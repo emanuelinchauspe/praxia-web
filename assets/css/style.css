@@ -3,6 +3,14 @@
    Paleta y tipografías tomadas 1:1 de src/index.css (manual de marca Praxia
    v1.0 · Septiembre 2026) para que el sitio se sienta la misma marca que la
    app real, no una reinterpretación.
+
+   Sistema visual: en vez del kit genérico de SaaS (mockup de laptop
+   flotando, cards con el mismo radius/sombra para todo, eyebrows en
+   mayúscula trackeada arriba de cada título), el motivo es la ficha de
+   papel de un consultorio real — cada captura de pantalla se presenta como
+   una ficha con esquina cortada y un código de registro (".ficha"), y la
+   sección de seguridad usa una textura fina tipo papel de seguridad
+   (recetario/formulario oficial) en vez de un gradiente decorativo.
    ========================================================================== */
 
 :root {
@@ -26,13 +34,12 @@
   /* Único color "de más" respecto al manual de la app: el celeste del
      isotipo (el cuarto brazo de la cruz, #2E8EA8). En la app no se usa como
      token porque el acento ahí es siempre el ink; acá lo usamos como chispa
-     puntual —subrayados, puntos, gradientes muy sutiles— para dar algo de
-     calidez de "sitio" sin inventarle un color nuevo a la marca. */
+     puntual —un subrayado, un punto— para no gastar el acento en decoración. */
   --color-spark: #2e8ea8;
   --color-spark-rgb: 46, 142, 168;
 
-  --radius-sm: 3px;
-  --radius-md: 6px;
+  --radius-sm: 2px;
+  --notch: 16px;
   --container: 1180px;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -85,25 +92,6 @@ a {
   padding: 0 24px;
 }
 
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-spark);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.eyebrow::before {
-  content: "";
-  width: 16px;
-  height: 1px;
-  background: currentColor;
-}
-
 h1,
 h2,
 h3,
@@ -116,10 +104,10 @@ h4 {
 }
 
 h1 {
-  font-size: clamp(2.4rem, 1.6rem + 3.2vw, 3.75rem);
-  line-height: 1.05;
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4rem);
+  line-height: 1.03;
   font-weight: 500;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 h2 {
@@ -167,6 +155,11 @@ p {
 
 .btn:active {
   transform: translateY(1px);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-spark);
+  outline-offset: 2px;
 }
 
 .btn-primary {
@@ -299,20 +292,19 @@ p {
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  padding: 168px 0 96px;
+  padding: 168px 0 110px;
   overflow: hidden;
 }
 
+/* Textura de fondo: puntos finos, como el papel cuadriculado de una
+   agenda de mesa — no un gradiente de color decorativo. */
 .hero-bg {
   position: absolute;
-  inset: -20% -10% auto -10%;
-  height: 780px;
-  background: radial-gradient(
-      52% 60% at 78% 18%,
-      rgba(var(--color-spark-rgb), 0.14),
-      transparent 70%
-    ),
-    radial-gradient(40% 50% at 15% 8%, rgba(var(--color-ink-rgb), 0.07), transparent 70%);
+  inset: 0;
+  background-image: radial-gradient(rgba(var(--color-ink-rgb), 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(60% 55% at 68% 15%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(60% 55% at 68% 15%, #000 0%, transparent 75%);
   pointer-events: none;
   z-index: -1;
 }
@@ -322,10 +314,6 @@ p {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 48px;
   align-items: center;
-}
-
-.hero-copy .eyebrow {
-  margin-bottom: 20px;
 }
 
 .hero-copy h1 {
@@ -362,88 +350,94 @@ p {
   flex: none;
 }
 
-/* Visual del hero: laptop con la agenda + celular flotando encima */
+/* Visual del hero: dos fichas apoyadas como sobre un escritorio, en vez de
+   un mockup de laptop + celular flotando (el gesto genérico de SaaS). */
 .hero-visual {
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  min-height: 380px;
+  align-items: center;
+  min-height: 420px;
+  padding: 20px 0;
 }
 
-.device-laptop {
-  position: relative;
-  width: min(560px, 100%);
-  animation: float-slow 7s var(--ease) infinite;
+.hero-visual .ficha-lg {
+  width: min(480px, 92%);
 }
 
-.device-laptop .screen {
-  background: var(--color-ink);
-  border-radius: 10px 10px 2px 2px;
-  padding: 10px 10px 0;
-  box-shadow: 0 30px 60px -25px rgba(var(--color-ink-rgb), 0.45);
-}
-
-.device-laptop .screen-inner {
-  background: var(--color-bone);
-  border-radius: 4px 4px 0 0;
-  overflow: hidden;
-  aspect-ratio: 16 / 10;
-  position: relative;
-}
-
-.device-laptop .base {
-  height: 12px;
-  background: linear-gradient(180deg, #24374a, #16232f);
-  border-radius: 0 0 8px 8px;
-  position: relative;
-}
-
-.device-laptop .base::after {
-  content: "";
+.hero-visual .ficha-sm {
   position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-  width: 18%;
-  height: 4px;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: 0 0 4px 4px;
+  right: 2%;
+  bottom: 6%;
+  width: min(190px, 42%);
+  z-index: 2;
 }
 
-.device-phone {
-  position: absolute;
-  right: -6%;
-  bottom: -8%;
-  width: 140px;
-  animation: float-slow 8s var(--ease) infinite;
-  animation-delay: -2.4s;
-  filter: drop-shadow(0 20px 30px rgba(var(--color-ink-rgb), 0.28));
-}
-
-.device-phone .frame {
-  background: var(--color-ink);
-  border-radius: 22px;
-  padding: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.device-phone .screen-inner {
-  background: var(--color-bone);
-  border-radius: 15px;
-  overflow: hidden;
-  aspect-ratio: 9 / 19.5;
+/* ---------- Ficha: el motivo del sitio ----------
+   Una captura de pantalla presentada como una ficha de papel: esquina
+   cortada, código de registro mono en la solapa, sombra plana (no blur) —
+   como una carpeta apoyada sobre el escritorio, no una ventana de software
+   flotando en el aire. */
+/* El notch, el borde y el fondo van en ".ficha-shape" (el hijo clipeado);
+   ".ficha" (el padre) queda sin clip-path para poder llevar la sombra
+   (drop-shadow, que sí sigue la silueta recortada de sus hijos) y la
+   etiqueta ".ficha-tag" sin que el propio clip-path del padre se los coma. */
+.ficha {
+  --tilt: 0deg;
   position: relative;
+  transform: rotate(var(--tilt));
+  filter: drop-shadow(7px 7px 0 rgba(var(--color-ink-rgb), 0.18));
+  transition: transform 0.4s var(--ease), filter 0.4s var(--ease);
 }
 
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+.ficha-shape {
+  background: var(--color-white);
+  border: 1px solid rgba(var(--color-ink-rgb), 0.16);
+  clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, 0 100%);
+  overflow: hidden;
+}
+
+.ficha.tilt-l {
+  --tilt: -1.6deg;
+}
+
+.ficha.tilt-r {
+  --tilt: 1.4deg;
+}
+
+.hero-visual .ficha:hover {
+  --tilt: 0deg;
+  filter: drop-shadow(9px 9px 0 rgba(var(--color-ink-rgb), 0.22));
+}
+
+.ficha-tag {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--color-bone);
+  background: var(--color-ink);
+  padding: 5px 11px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.feature-row .ficha,
+.specialty-card.ficha {
+  width: 100%;
+}
+
+.ficha-shape .shot-wrap {
+  position: relative;
+  aspect-ratio: 16 / 10.4;
+  background: var(--color-bone);
+  overflow: hidden;
+}
+
+.ficha-phone .shot-wrap {
+  aspect-ratio: 9 / 16;
 }
 
 .shot {
@@ -468,11 +462,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    135deg,
-    rgba(var(--color-ink-rgb), 0.08),
-    rgba(var(--color-spark-rgb), 0.1)
-  );
+  background: rgba(var(--color-ink-rgb), 0.05);
 }
 
 .shot-placeholder svg {
@@ -497,10 +487,6 @@ section[id] {
   margin: 0 0 56px;
 }
 
-.section-head h2 {
-  margin-top: 16px;
-}
-
 .section-head .lede {
   margin-top: 16px;
   max-width: 56ch;
@@ -517,62 +503,147 @@ section[id] {
   margin-right: auto;
 }
 
-.divider {
-  height: 1px;
-  background: rgba(var(--color-ink-rgb), 0.08);
-  border: none;
+/* ---------- Dolor / gancho: receta ----------
+   El diagnóstico de siempre (turnos que se pisan, fichas que se pierden...)
+   se presenta como una receta médica real, con su indicación: Praxia. Es
+   una ficha más del mismo sistema visual (esquina cortada, sombra dura),
+   pero a tamaño de documento y con reglón horizontal como el papel de un
+   recetario, en vez de una grilla de cards. */
+.receta {
+  width: min(640px, 100%);
+  margin: 0 auto;
+}
+
+.receta-shape {
+  padding: clamp(28px, 4vw, 44px) clamp(26px, 5vw, 48px);
+  background-image: repeating-linear-gradient(
+    rgba(var(--color-ink-rgb), 0.05) 0px,
+    rgba(var(--color-ink-rgb), 0.05) 1px,
+    transparent 1px,
+    transparent 34px
+  );
+}
+
+.receta-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid rgba(var(--color-ink-rgb), 0.16);
+}
+
+.receta-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--color-graphite);
+}
+
+.receta-brand img {
+  width: 18px;
+  height: 18px;
+}
+
+.receta-date {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-graphite);
+}
+
+.receta-field {
+  margin-bottom: 22px;
+}
+
+.receta-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-graphite);
+  margin-bottom: 6px;
+}
+
+.receta-value {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.receta-dx-list {
+  list-style: none;
   margin: 0;
-}
-
-/* ---------- Dolor / gancho ---------- */
-.pain-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1px;
-  background: rgba(var(--color-ink-rgb), 0.1);
-  border: 1px solid rgba(var(--color-ink-rgb), 0.1);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-}
-
-.pain-card {
-  background: var(--color-white);
-  padding: 32px 28px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 7px;
 }
 
-.pain-card .icon {
-  width: 34px;
-  height: 34px;
-  color: var(--color-danger);
+.receta-dx-list li {
+  font-style: italic;
+  color: var(--color-ink);
+  font-size: 0.98rem;
+  line-height: 1.5;
 }
 
-.pain-card h3 {
-  font-size: 1.05rem;
+.receta-rx {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 22px 0;
+  margin-bottom: 24px;
+  border-top: 1px solid rgba(var(--color-ink-rgb), 0.16);
+  border-bottom: 1px solid rgba(var(--color-ink-rgb), 0.16);
 }
 
-.pain-card p {
+.receta-rx-symbol {
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--color-spark);
+  flex: none;
+}
+
+.receta-indication p {
+  font-size: 1rem;
+}
+
+.receta-indication p + p {
+  margin-top: 6px;
   color: var(--color-graphite);
   font-size: 0.92rem;
 }
 
-.pain-resolve {
-  margin-top: 40px;
+.receta-foot {
   display: flex;
   align-items: center;
-  gap: 14px;
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: var(--color-ink);
+  gap: 12px;
+  position: relative;
+  min-height: 52px;
 }
 
-.pain-resolve svg {
-  width: 22px;
-  height: 22px;
-  color: var(--color-success);
-  flex: none;
+.receta-sign-line {
+  width: 150px;
+  height: 1px;
+  background: rgba(var(--color-ink-rgb), 0.4);
+}
+
+.receta-sign-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-graphite);
+}
+
+.receta-stamp {
+  width: 52px;
+  height: 52px;
+  color: var(--color-spark);
+  opacity: 0.82;
+  mix-blend-mode: multiply;
+  transform: rotate(-9deg);
+  position: absolute;
+  right: 4px;
+  top: -6px;
 }
 
 /* ---------- Features (alternadas con captura) ---------- */
@@ -590,10 +661,6 @@ section[id] {
 
 .feature-row.reverse .feature-copy {
   order: 2;
-}
-
-.feature-copy .eyebrow {
-  margin-bottom: 14px;
 }
 
 .feature-copy h3 {
@@ -632,110 +699,39 @@ section[id] {
   flex: none;
 }
 
-.browser-frame {
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(var(--color-ink-rgb), 0.12);
-  background: var(--color-white);
-  box-shadow: 0 30px 70px -40px rgba(var(--color-ink-rgb), 0.35);
-  overflow: hidden;
+.feature-row .ficha {
+  margin-top: 22px;
 }
 
-.browser-frame .bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 12px;
-  background: rgba(var(--color-ink-rgb), 0.04);
-  border-bottom: 1px solid rgba(var(--color-ink-rgb), 0.08);
+.feature-row.reverse .ficha {
+  margin-top: 0;
 }
 
-.browser-frame .bar span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(var(--color-ink-rgb), 0.18);
-}
-
-.browser-frame .shot-wrap {
-  position: relative;
-  aspect-ratio: 16 / 10.4;
-  background: var(--color-bone);
-}
-
-.phone-frame {
-  width: min(220px, 60%);
-  margin: 0 auto;
-}
-
-.phone-frame .frame {
-  background: var(--color-ink);
-  border-radius: 26px;
-  padding: 9px;
-  box-shadow: 0 30px 70px -40px rgba(var(--color-ink-rgb), 0.4);
-}
-
-.phone-frame .shot-wrap {
-  position: relative;
-  aspect-ratio: 9 / 19.5;
-  background: var(--color-bone);
-  border-radius: 18px;
-  overflow: hidden;
-}
-
-/* Zoom sutil al detalle: la captura entra un poco más grande y se acomoda
-   al hover / al entrar en viewport (ver main.js), nunca abrupto. */
+/* Zoom sutil al detalle: la captura entra un poco más grande al pasar el
+   mouse por la fila entera, nunca abrupto. */
 .shot-wrap img {
   transition: transform 0.6s var(--ease);
 }
 
 .feature-row:hover .shot-wrap img {
-  transform: scale(1.015);
+  transform: scale(1.02);
+}
+
+.ficha-phone {
+  width: min(220px, 60%);
+  margin: 0 auto;
 }
 
 /* ---------- Especialidades ---------- */
 .specialty-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 28px;
-}
-
-.specialty-card {
-  background: var(--color-white);
-  border: 1px solid rgba(var(--color-ink-rgb), 0.1);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition:
-    transform 0.35s var(--ease),
-    box-shadow 0.35s var(--ease);
-}
-
-.specialty-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 34px 60px -34px rgba(var(--color-ink-rgb), 0.35);
-}
-
-.specialty-card .shot-wrap {
-  position: relative;
-  aspect-ratio: 16 / 10.5;
-  background: var(--color-bone);
-  border-bottom: 1px solid rgba(var(--color-ink-rgb), 0.08);
+  gap: 44px 28px;
+  margin-top: 8px;
 }
 
 .specialty-card .body {
-  padding: 26px 26px 30px;
-}
-
-.specialty-tag {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-accent-foreground);
-  background: var(--color-ink);
-  padding: 4px 9px;
-  border-radius: 3px;
-  margin-bottom: 14px;
+  padding: 22px 4px 4px;
 }
 
 .specialty-card h3 {
@@ -746,6 +742,10 @@ section[id] {
   color: var(--color-graphite);
   font-size: 0.92rem;
   margin-bottom: 16px;
+}
+
+.specialty-card:hover .ficha-tag {
+  background: var(--color-spark);
 }
 
 .chip-row {
@@ -763,9 +763,11 @@ section[id] {
 }
 
 /* ---------- Seguridad ---------- */
+/* Bloque oscuro con una textura fina de líneas diagonales — el mismo
+   recurso que un papel de seguridad de recetario o formulario oficial,
+   en vez de un gradiente de color decorativo. */
 .security-wrap {
   background: var(--color-ink);
-  border-radius: 14px;
   padding: clamp(36px, 5vw, 64px);
   color: var(--color-bone);
   position: relative;
@@ -776,20 +778,18 @@ section[id] {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    45% 60% at 85% 0%,
-    rgba(var(--color-spark-rgb), 0.28),
-    transparent 70%
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.045) 0px,
+    rgba(255, 255, 255, 0.045) 1px,
+    transparent 1px,
+    transparent 9px
   );
   pointer-events: none;
 }
 
 .security-wrap .section-head {
   position: relative;
-}
-
-.security-wrap .eyebrow {
-  color: #7fd0e4;
 }
 
 .security-wrap .section-head h2 {
@@ -800,27 +800,27 @@ section[id] {
   color: rgba(250, 250, 249, 0.72);
 }
 
-.security-grid {
+.security-list {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-md);
-  overflow: hidden;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
 }
 
 .security-item {
-  background: rgba(255, 255, 255, 0.03);
-  padding: 26px 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .security-item .icon {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   color: #7fd0e4;
-  margin-bottom: 14px;
+  flex: none;
+  margin-top: 2px;
 }
 
 .security-item h3 {
@@ -950,6 +950,10 @@ html.js .reveal.is-visible {
   .feature-row.reverse .feature-copy {
     order: 0;
   }
+  .feature-row .ficha,
+  .feature-row.reverse .ficha {
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 760px) {
@@ -958,7 +962,7 @@ html.js .reveal.is-visible {
     inset: 64px 16px auto 16px;
     background: var(--color-white);
     border: 1px solid rgba(var(--color-ink-rgb), 0.1);
-    border-radius: var(--radius-md);
+    border-radius: 6px;
     padding: 18px;
     flex-direction: column;
     align-items: stretch;
@@ -990,11 +994,22 @@ html.js .reveal.is-visible {
   .hero {
     padding-top: 140px;
   }
-  .device-phone {
+  .hero-visual .ficha-sm {
     display: none;
   }
   section {
     padding: 64px 0;
+  }
+  .security-list {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+  .receta-rx {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .receta-stamp {
+    display: none;
   }
 }
 
