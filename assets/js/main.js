@@ -66,6 +66,28 @@
     });
   }
 
+  // Las fichas muestran un recorte del detalle; el clic abre la pantalla
+  // completa. <dialog> ya resuelve Esc y el foco; acá solo se agrega cerrar
+  // con la X y con un clic fuera de la imagen.
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightbox-img');
+  var lightboxClose = document.getElementById('lightbox-close');
+  if (lightbox && typeof lightbox.showModal === 'function') {
+    document.querySelectorAll('.shot-zoom').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        lightboxImg.src = btn.getAttribute('data-full');
+        lightboxImg.alt = btn.querySelector('.shot').alt;
+        lightbox.showModal();
+      });
+    });
+    lightboxClose.addEventListener('click', function () {
+      lightbox.close();
+    });
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) lightbox.close();
+    });
+  }
+
   // Capturas todavía no generadas (o que fallen al cargar): mostramos el
   // placeholder con ícono en vez de un ícono de imagen rota del navegador.
   document.querySelectorAll('.shot').forEach(function (img) {

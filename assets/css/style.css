@@ -459,6 +459,100 @@ p {
   color: rgba(var(--color-ink-rgb), 0.28);
 }
 
+/* ---------- Recorte ampliable ---------- */
+.shot-zoom {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  cursor: zoom-in;
+}
+
+.shot-zoom:focus-visible {
+  outline: 2px solid var(--color-spark);
+  outline-offset: -3px;
+}
+
+/* Siempre visible (no solo al hover): en touch no hay hover y es la única
+   pista de que el recorte se puede ampliar. */
+.zoom-hint {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  font-size: 0.75rem;
+  color: var(--color-bone);
+  background: rgba(var(--color-ink-rgb), 0.82);
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s var(--ease);
+}
+
+.zoom-hint svg {
+  width: 13px;
+  height: 13px;
+}
+
+.shot-zoom:hover .zoom-hint {
+  background: var(--color-ink);
+}
+
+.lightbox {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  max-width: 94vw;
+  max-height: 92vh;
+  overflow: visible;
+}
+
+.lightbox::backdrop {
+  background: rgba(18, 30, 41, 0.86);
+}
+
+.lightbox-img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(1400px, 94vw);
+  max-height: 88vh;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(250, 250, 249, 0.12);
+  color: var(--color-bone);
+  cursor: pointer;
+}
+
+.lightbox-close svg {
+  width: 22px;
+  height: 22px;
+}
+
+.lightbox-close:focus-visible {
+  outline: 2px solid var(--color-spark);
+  outline-offset: 2px;
+}
+
 /* ---------- Secciones genéricas ---------- */
 section {
   padding: 96px 0;
@@ -906,6 +1000,19 @@ html.js .reveal.is-visible {
   }
   .hero {
     padding-top: 120px;
+  }
+  /* A 375px la pantalla completa de la app es ilegible: se muestra al doble
+     de ancho y se recorre con scroll. */
+  .lightbox {
+    max-width: 100vw;
+    width: 100vw;
+    max-height: 80vh;
+    overflow: auto;
+  }
+  .lightbox-img {
+    max-width: none;
+    max-height: none;
+    width: 220vw;
   }
   section {
     padding: 64px 0;
