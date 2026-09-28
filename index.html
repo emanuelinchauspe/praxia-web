@@ -67,8 +67,15 @@
   <main id="top">
     <!-- ==================== HERO ==================== -->
     <section class="hero" id="producto">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="container hero-grid">
+      <img
+        class="hero-photo"
+        src="assets/img/hero-receta.jpg"
+        width="1280"
+        height="720"
+        fetchpriority="high"
+        alt="Receta médica de Praxia Clinic recién escrita a mano. Diagnóstico: desorganización, falta de seguimiento de la historia clínica, alto ausentismo. Rp/ Praxia Clinic, uso diario, sin interrupciones."
+      />
+      <div class="container">
         <div class="hero-copy reveal">
           <h1>Todo tu consultorio,<br />en un solo lugar.</h1>
           <p class="lede">
@@ -84,50 +91,51 @@
           </div>
           <span class="hero-trust"><span class="dot"></span> En producción con clínicas reales desde septiembre de 2026</span>
         </div>
-
-        <div class="hero-visual reveal" style="transition-delay:120ms">
-          <div class="ficha ficha-lg tilt-l">
-            <span class="ficha-tag">AGENDA · SEM 27</span>
-            <div class="ficha-shape">
-              <div class="shot-wrap">
-                <img class="shot" src="assets/img/screenshots/agenda.png" alt="Agenda semanal de Praxia con turnos por profesional" loading="eager" />
-                <div class="shot-placeholder" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="17" rx="1.5"/><path d="M3 9h18M8 3v3M16 3v3" stroke-linecap="round"/></svg>
-                </div>
-            </div>
-            </div>
-          </div>
-          <div class="ficha ficha-sm tilt-r">
-            <span class="ficha-tag">CELULAR</span>
-            <div class="ficha-shape">
-              <div class="shot-wrap">
-                <img class="shot" src="assets/img/screenshots/mobile-agenda.png" alt="Praxia en el celular" loading="eager" />
-                <div class="shot-placeholder" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
-                </div>
-            </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- ==================== DOLOR / GANCHO: RECETA ==================== -->
+    <!-- ==================== DOLOR / GANCHO ==================== -->
     <section>
       <div class="container">
         <div class="section-head reveal">
           <h2>¿Turnos por WhatsApp, fichas en papel y la caja en un cuaderno?</h2>
         </div>
 
-        <figure class="receta reveal">
-          <img
-            src="assets/img/receta-praxia.jpg"
-            width="1280"
-            height="720"
-            loading="lazy"
-            alt="Receta médica de Praxia Clinic escrita a mano. Diagnóstico: desorganización, falta de seguimiento de la historia clínica, alto ausentismo. Rp/ Praxia Clinic, uso diario, sin interrupciones. Firmada y sellada, con la mano del médico sosteniendo la lapicera al lado."
-          />
-        </figure>
+        <div class="pain-list reveal reveal-stagger">
+          <div class="pain-item" style="--i:0">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="17" rx="1.5"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <h3>Turnos que se pisan</h3>
+              <p>Sin una agenda única por profesional, dos pacientes terminan citados a la misma hora — o un hueco libre nunca se ofrece a nadie.</p>
+            </div>
+          </div>
+          <div class="pain-item" style="--i:1">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 19V5a1 1 0 011-1h10l5 5v10a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M14 4v5h5" /></svg>
+            <div>
+              <h3>Fichas que se pierden</h3>
+              <p>Carpetas de papel, fotos sueltas en el celular del profesional, consentimientos firmados que nadie encuentra cuando hacen falta.</p>
+            </div>
+          </div>
+          <div class="pain-item" style="--i:2">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2" stroke-linecap="round"/></svg>
+            <div>
+              <h3>Ausencias que nadie avisa</h3>
+              <p>Un turno que se olvida es un hueco en la agenda que ya no se puede recuperar ese día. Sin recordatorio, el ausentismo se paga solo.</p>
+            </div>
+          </div>
+          <div class="pain-item" style="--i:3">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h16M4 12h16M4 18h10" stroke-linecap="round"/><circle cx="19" cy="18" r="2.4"/></svg>
+            <div>
+              <h3>La caja, a mano</h3>
+              <p>A fin de mes nadie sabe con certeza cuánto cobró cada profesional ni cuánto quedó pendiente de cada paciente.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="pain-resolve reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Praxia junta todo eso en un solo sistema, pensado para cómo trabaja un consultorio real.
+        </p>
       </div>
     </section>
 

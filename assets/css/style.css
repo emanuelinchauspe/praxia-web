@@ -201,6 +201,9 @@ p {
     border-color 0.3s var(--ease),
     padding 0.3s var(--ease);
   border-bottom: 1px solid transparent;
+  background: rgba(250, 250, 249, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .site-header.is-scrolled {
@@ -290,30 +293,49 @@ p {
 }
 
 /* ---------- Hero ---------- */
+/* Foto de fondo: una receta de Praxia Clinic recién escrita, con el
+   escritorio libre a la izquierda para el título. El velo claro solo cubre
+   esa mitad, para que el texto se lea sin lavar la receta. */
 .hero {
   position: relative;
-  padding: 168px 0 110px;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: min(100svh, 880px);
+  padding: 140px 0 96px;
   overflow: hidden;
 }
 
-/* Textura de fondo: puntos finos, como el papel cuadriculado de una
-   agenda de mesa — no un gradiente de color decorativo. */
-.hero-bg {
+/* La caja se extiende 6vw más allá del borde derecho (el hero la recorta)
+   para correr la hoja hacia la derecha y que no pise el texto, sin perder
+   la mano del médico. */
+.hero-photo {
   position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(var(--color-ink-rgb), 0.09) 1px, transparent 1px);
-  background-size: 22px 22px;
-  -webkit-mask-image: radial-gradient(60% 55% at 68% 15%, #000 0%, transparent 75%);
-  mask-image: radial-gradient(60% 55% at 68% 15%, #000 0%, transparent 75%);
-  pointer-events: none;
-  z-index: -1;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  width: calc(100% + 6vw);
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
 }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 48px;
-  align-items: center;
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    rgba(250, 250, 249, 0.94) 0%,
+    rgba(250, 250, 249, 0.8) 30%,
+    rgba(250, 250, 249, 0) 48%
+  );
+}
+
+.hero-copy {
+  max-width: 480px;
 }
 
 .hero-copy h1 {
@@ -323,6 +345,7 @@ p {
 .hero-copy .lede {
   margin-bottom: 32px;
   max-width: 42ch;
+  color: #55636c;
 }
 
 .hero-ctas {
@@ -333,12 +356,16 @@ p {
   margin-bottom: 28px;
 }
 
+.hero .btn-secondary {
+  background: rgba(250, 250, 249, 0.7);
+}
+
 .hero-trust {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   font-size: 0.82rem;
-  color: var(--color-graphite);
+  color: #55636c;
 }
 
 .hero-trust .dot {
@@ -348,29 +375,6 @@ p {
   background: var(--color-success);
   box-shadow: 0 0 0 3px rgba(46, 155, 122, 0.18);
   flex: none;
-}
-
-/* Visual del hero: dos fichas apoyadas como sobre un escritorio, en vez de
-   un mockup de laptop + celular flotando (el gesto genérico de SaaS). */
-.hero-visual {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 420px;
-  padding: 20px 0;
-}
-
-.hero-visual .ficha-lg {
-  width: min(480px, 92%);
-}
-
-.hero-visual .ficha-sm {
-  position: absolute;
-  right: 2%;
-  bottom: 6%;
-  width: min(190px, 42%);
-  z-index: 2;
 }
 
 /* ---------- Ficha: el motivo del sitio ----------
@@ -383,11 +387,8 @@ p {
    (drop-shadow, que sí sigue la silueta recortada de sus hijos) y la
    etiqueta ".ficha-tag" sin que el propio clip-path del padre se los coma. */
 .ficha {
-  --tilt: 0deg;
   position: relative;
-  transform: rotate(var(--tilt));
   filter: drop-shadow(7px 7px 0 rgba(var(--color-ink-rgb), 0.18));
-  transition: transform 0.4s var(--ease), filter 0.4s var(--ease);
 }
 
 .ficha-shape {
@@ -395,19 +396,6 @@ p {
   border: 1px solid rgba(var(--color-ink-rgb), 0.16);
   clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, 0 100%);
   overflow: hidden;
-}
-
-.ficha.tilt-l {
-  --tilt: -1.6deg;
-}
-
-.ficha.tilt-r {
-  --tilt: 1.4deg;
-}
-
-.hero-visual .ficha:hover {
-  --tilt: 0deg;
-  filter: drop-shadow(9px 9px 0 rgba(var(--color-ink-rgb), 0.22));
 }
 
 .ficha-tag {
@@ -503,19 +491,58 @@ section[id] {
   margin-right: auto;
 }
 
-/* ---------- Dolor / gancho: receta ----------
-   Foto de una receta médica real: el diagnóstico del consultorio y la
-   indicación, Praxia. */
-.receta {
-  margin: 0;
-  border: 1px solid rgba(var(--color-ink-rgb), 0.12);
-  box-shadow: 0 30px 60px -40px rgba(var(--color-ink-rgb), 0.45);
-  overflow: hidden;
+/* ---------- Dolor / gancho ---------- */
+/* Lista con separadores finos, como un check-list de recepción — no otra
+   grilla de cards con borde. */
+.pain-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 48px;
 }
 
-.receta img {
-  width: 100%;
-  height: auto;
+.pain-item {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 28px 0;
+  border-top: 1px solid rgba(var(--color-ink-rgb), 0.12);
+}
+
+.pain-item .icon {
+  width: 26px;
+  height: 26px;
+  color: var(--color-danger);
+  flex: none;
+  margin-top: 2px;
+}
+
+.pain-item h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.pain-item p {
+  color: var(--color-graphite);
+  font-size: 0.92rem;
+}
+
+.pain-resolve {
+  margin-top: 8px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(var(--color-ink-rgb), 0.12);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--color-ink);
+}
+
+.pain-resolve svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-success);
+  flex: none;
 }
 
 /* ---------- Features (alternadas con captura) ---------- */
@@ -807,12 +834,26 @@ html.js .reveal.is-visible {
 }
 
 /* ---------- Responsive ---------- */
+/* En pantallas angostas no hay escritorio libre para el título: el texto va
+   arriba sobre fondo liso y la foto abajo, recortada sobre la receta. */
 @media (max-width: 920px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    padding-bottom: 0;
   }
-  .hero-visual {
-    margin-top: 24px;
+  .hero::before {
+    display: none;
+  }
+  .hero-photo {
+    position: static;
+    order: 2;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    margin-top: 48px;
+    object-position: right center;
   }
   .feature-row,
   .feature-row.reverse {
@@ -864,14 +905,12 @@ html.js .reveal.is-visible {
     display: inline-flex;
   }
   .hero {
-    padding-top: 140px;
-  }
-  .hero-visual .ficha-sm {
-    display: none;
+    padding-top: 120px;
   }
   section {
     padding: 64px 0;
   }
+  .pain-list,
   .security-list {
     grid-template-columns: 1fr;
     column-gap: 0;
