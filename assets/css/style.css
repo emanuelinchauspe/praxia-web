@@ -21,6 +21,9 @@
   --color-ink: #1b2a3a;
   --color-ink-rgb: 27, 42, 58;
   --color-graphite: #6e7c85;
+  /* El graphite de marca da 4.3:1 sobre blanco, por debajo de AA para texto.
+     Para párrafos y links se usa esta variante más oscura del mismo gris. */
+  --color-text-muted: #55636c;
   --color-bone: #fafaf9;
   --color-white: #ffffff;
 
@@ -127,7 +130,7 @@ p {
 
 .lede {
   font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
-  color: var(--color-graphite);
+  color: var(--color-text-muted);
   max-width: 46ch;
 }
 
@@ -246,7 +249,7 @@ p {
 
 .main-nav a:not(.btn) {
   font-size: 0.9rem;
-  color: var(--color-graphite);
+  color: var(--color-text-muted);
   text-decoration: none;
   position: relative;
   padding: 4px 0;
@@ -345,7 +348,7 @@ p {
 .hero-copy .lede {
   margin-bottom: 32px;
   max-width: 42ch;
-  color: #55636c;
+  color: var(--color-text-muted);
 }
 
 .hero-ctas {
@@ -365,7 +368,7 @@ p {
   align-items: center;
   gap: 10px;
   font-size: 0.82rem;
-  color: #55636c;
+  color: var(--color-text-muted);
 }
 
 .hero-trust .dot {
@@ -616,7 +619,7 @@ section[id] {
 }
 
 .pain-item p {
-  color: var(--color-graphite);
+  color: var(--color-text-muted);
   font-size: 0.92rem;
 }
 
@@ -663,7 +666,7 @@ section[id] {
 }
 
 .feature-copy p {
-  color: var(--color-graphite);
+  color: var(--color-text-muted);
   margin-bottom: 18px;
 }
 
@@ -734,7 +737,7 @@ section[id] {
 }
 
 .specialty-card p {
-  color: var(--color-graphite);
+  color: var(--color-text-muted);
   font-size: 0.92rem;
   margin-bottom: 16px;
 }
@@ -882,7 +885,7 @@ section[id] {
   row-gap: 8px;
   column-gap: 22px;
   font-size: 0.85rem;
-  color: var(--color-graphite);
+  color: var(--color-text-muted);
 }
 
 .footer-links a {
@@ -897,7 +900,7 @@ section[id] {
 .footer-meta {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--color-graphite);
+  color: var(--color-text-muted);
 }
 
 /* ---------- Reveal on scroll ---------- */
