@@ -710,8 +710,10 @@ section[id] {
   transform: scale(1.02);
 }
 
-.ficha-phone {
-  width: min(220px, 60%);
+/* Con ".feature-row" adelante para ganarle a ".feature-row .ficha { width: 100% }":
+   sin eso el teléfono ocupa toda la columna (~540×950px). */
+.feature-row .ficha-phone {
+  width: min(240px, 60%);
   margin: 0 auto;
 }
 
