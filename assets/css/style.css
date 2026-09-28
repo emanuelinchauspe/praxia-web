@@ -1,0 +1,1005 @@
+/* ==========================================================================
+   Praxia — sitio de marketing
+   Paleta y tipografías tomadas 1:1 de src/index.css (manual de marca Praxia
+   v1.0 · Septiembre 2026) para que el sitio se sienta la misma marca que la
+   app real, no una reinterpretación.
+   ========================================================================== */
+
+:root {
+  --font-sans: Outfit, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: Outfit, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --color-ink: #1b2a3a;
+  --color-ink-rgb: 27, 42, 58;
+  --color-graphite: #6e7c85;
+  --color-bone: #fafaf9;
+  --color-white: #ffffff;
+
+  --color-accent: #1b2a3a;
+  --color-accent-strong: #121e29;
+  --color-accent-foreground: #fafaf9;
+
+  --color-success: #2e9b7a;
+  --color-danger: #c05a3e;
+
+  /* Único color "de más" respecto al manual de la app: el celeste del
+     isotipo (el cuarto brazo de la cruz, #2E8EA8). En la app no se usa como
+     token porque el acento ahí es siempre el ink; acá lo usamos como chispa
+     puntual —subrayados, puntos, gradientes muy sutiles— para dar algo de
+     calidez de "sitio" sin inventarle un color nuevo a la marca. */
+  --color-spark: #2e8ea8;
+  --color-spark-rgb: 46, 142, 168;
+
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --container: 1180px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-bone);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-spark);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 16px;
+  height: 1px;
+  background: currentColor;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+h1 {
+  font-size: clamp(2.4rem, 1.6rem + 3.2vw, 3.75rem);
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  line-height: 1.15;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+p {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.lede {
+  font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+  color: var(--color-graphite);
+  max-width: 46ch;
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--color-ink);
+  color: var(--color-bone);
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-strong);
+  box-shadow: 0 8px 24px -12px rgba(var(--color-ink-rgb), 0.45);
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: rgba(var(--color-ink-rgb), 0.22);
+  color: var(--color-ink);
+}
+
+.btn-secondary:hover {
+  background: rgba(var(--color-ink-rgb), 0.05);
+  border-color: rgba(var(--color-ink-rgb), 0.4);
+}
+
+.btn-lg {
+  padding: 14px 28px;
+  font-size: 0.95rem;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 18px 0;
+  transition:
+    background-color 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    padding 0.3s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+
+.site-header.is-scrolled {
+  background: rgba(250, 250, 249, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(var(--color-ink-rgb), 0.08);
+  padding: 12px 0;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.brand img {
+  width: 30px;
+  height: 30px;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.main-nav a:not(.btn) {
+  font-size: 0.9rem;
+  color: var(--color-graphite);
+  text-decoration: none;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.2s var(--ease);
+}
+
+.main-nav a:not(.btn):hover {
+  color: var(--color-ink);
+}
+
+.main-nav a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-spark);
+  transition: right 0.25s var(--ease);
+}
+
+.main-nav a:not(.btn):hover::after {
+  right: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.nav-toggle svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-ink);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  padding: 168px 0 96px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 780px;
+  background: radial-gradient(
+      52% 60% at 78% 18%,
+      rgba(var(--color-spark-rgb), 0.14),
+      transparent 70%
+    ),
+    radial-gradient(40% 50% at 15% 8%, rgba(var(--color-ink-rgb), 0.07), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.hero-copy .eyebrow {
+  margin-bottom: 20px;
+}
+
+.hero-copy h1 {
+  margin-bottom: 22px;
+}
+
+.hero-copy .lede {
+  margin-bottom: 32px;
+  max-width: 42ch;
+}
+
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.hero-trust {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: var(--color-graphite);
+}
+
+.hero-trust .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-success);
+  box-shadow: 0 0 0 3px rgba(46, 155, 122, 0.18);
+  flex: none;
+}
+
+/* Visual del hero: laptop con la agenda + celular flotando encima */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 380px;
+}
+
+.device-laptop {
+  position: relative;
+  width: min(560px, 100%);
+  animation: float-slow 7s var(--ease) infinite;
+}
+
+.device-laptop .screen {
+  background: var(--color-ink);
+  border-radius: 10px 10px 2px 2px;
+  padding: 10px 10px 0;
+  box-shadow: 0 30px 60px -25px rgba(var(--color-ink-rgb), 0.45);
+}
+
+.device-laptop .screen-inner {
+  background: var(--color-bone);
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  position: relative;
+}
+
+.device-laptop .base {
+  height: 12px;
+  background: linear-gradient(180deg, #24374a, #16232f);
+  border-radius: 0 0 8px 8px;
+  position: relative;
+}
+
+.device-laptop .base::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 18%;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 0 0 4px 4px;
+}
+
+.device-phone {
+  position: absolute;
+  right: -6%;
+  bottom: -8%;
+  width: 140px;
+  animation: float-slow 8s var(--ease) infinite;
+  animation-delay: -2.4s;
+  filter: drop-shadow(0 20px 30px rgba(var(--color-ink-rgb), 0.28));
+}
+
+.device-phone .frame {
+  background: var(--color-ink);
+  border-radius: 22px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.device-phone .screen-inner {
+  background: var(--color-bone);
+  border-radius: 15px;
+  overflow: hidden;
+  aspect-ratio: 9 / 19.5;
+  position: relative;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.shot {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  background: var(--color-bone);
+}
+
+/* Detrás de la captura siempre (ver z-index arriba): solo se ve si el script
+   oculta la imagen por no encontrarla (ver main.js, markMissing). Así una
+   captura que todavía no se generó no rompe el layout ni muestra el ícono
+   de imagen rota del navegador. */
+.shot-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-ink-rgb), 0.08),
+    rgba(var(--color-spark-rgb), 0.1)
+  );
+}
+
+.shot-placeholder svg {
+  width: 28%;
+  height: 28%;
+  color: rgba(var(--color-ink-rgb), 0.28);
+}
+
+/* ---------- Secciones genéricas ---------- */
+section {
+  padding: 96px 0;
+}
+
+/* Compensa el header fijo al navegar con anclas (#funcionalidades, etc.):
+   sin esto el título de la sección queda tapado detrás del header. */
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+.section-head {
+  max-width: 640px;
+  margin: 0 0 56px;
+}
+
+.section-head h2 {
+  margin-top: 16px;
+}
+
+.section-head .lede {
+  margin-top: 16px;
+  max-width: 56ch;
+}
+
+.section-head.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.section-head.center .lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(var(--color-ink-rgb), 0.08);
+  border: none;
+  margin: 0;
+}
+
+/* ---------- Dolor / gancho ---------- */
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1px;
+  background: rgba(var(--color-ink-rgb), 0.1);
+  border: 1px solid rgba(var(--color-ink-rgb), 0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.pain-card {
+  background: var(--color-white);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pain-card .icon {
+  width: 34px;
+  height: 34px;
+  color: var(--color-danger);
+}
+
+.pain-card h3 {
+  font-size: 1.05rem;
+}
+
+.pain-card p {
+  color: var(--color-graphite);
+  font-size: 0.92rem;
+}
+
+.pain-resolve {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--color-ink);
+}
+
+.pain-resolve svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-success);
+  flex: none;
+}
+
+/* ---------- Features (alternadas con captura) ---------- */
+.feature-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: center;
+  padding: 64px 0;
+}
+
+.feature-row:not(:last-child) {
+  border-bottom: 1px solid rgba(var(--color-ink-rgb), 0.08);
+}
+
+.feature-row.reverse .feature-copy {
+  order: 2;
+}
+
+.feature-copy .eyebrow {
+  margin-bottom: 14px;
+}
+
+.feature-copy h3 {
+  font-size: clamp(1.4rem, 1.2rem + 0.6vw, 1.8rem);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.feature-copy p {
+  color: var(--color-graphite);
+  margin-bottom: 18px;
+}
+
+.feature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: var(--color-ink);
+}
+
+.feature-list svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-success);
+  margin-top: 3px;
+  flex: none;
+}
+
+.browser-frame {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(var(--color-ink-rgb), 0.12);
+  background: var(--color-white);
+  box-shadow: 0 30px 70px -40px rgba(var(--color-ink-rgb), 0.35);
+  overflow: hidden;
+}
+
+.browser-frame .bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: rgba(var(--color-ink-rgb), 0.04);
+  border-bottom: 1px solid rgba(var(--color-ink-rgb), 0.08);
+}
+
+.browser-frame .bar span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(var(--color-ink-rgb), 0.18);
+}
+
+.browser-frame .shot-wrap {
+  position: relative;
+  aspect-ratio: 16 / 10.4;
+  background: var(--color-bone);
+}
+
+.phone-frame {
+  width: min(220px, 60%);
+  margin: 0 auto;
+}
+
+.phone-frame .frame {
+  background: var(--color-ink);
+  border-radius: 26px;
+  padding: 9px;
+  box-shadow: 0 30px 70px -40px rgba(var(--color-ink-rgb), 0.4);
+}
+
+.phone-frame .shot-wrap {
+  position: relative;
+  aspect-ratio: 9 / 19.5;
+  background: var(--color-bone);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* Zoom sutil al detalle: la captura entra un poco más grande y se acomoda
+   al hover / al entrar en viewport (ver main.js), nunca abrupto. */
+.shot-wrap img {
+  transition: transform 0.6s var(--ease);
+}
+
+.feature-row:hover .shot-wrap img {
+  transform: scale(1.015);
+}
+
+/* ---------- Especialidades ---------- */
+.specialty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.specialty-card {
+  background: var(--color-white);
+  border: 1px solid rgba(var(--color-ink-rgb), 0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+}
+
+.specialty-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 34px 60px -34px rgba(var(--color-ink-rgb), 0.35);
+}
+
+.specialty-card .shot-wrap {
+  position: relative;
+  aspect-ratio: 16 / 10.5;
+  background: var(--color-bone);
+  border-bottom: 1px solid rgba(var(--color-ink-rgb), 0.08);
+}
+
+.specialty-card .body {
+  padding: 26px 26px 30px;
+}
+
+.specialty-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-foreground);
+  background: var(--color-ink);
+  padding: 4px 9px;
+  border-radius: 3px;
+  margin-bottom: 14px;
+}
+
+.specialty-card h3 {
+  margin-bottom: 10px;
+}
+
+.specialty-card p {
+  color: var(--color-graphite);
+  font-size: 0.92rem;
+  margin-bottom: 16px;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  font-size: 0.78rem;
+  color: var(--color-ink);
+  border: 1px solid rgba(var(--color-ink-rgb), 0.16);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* ---------- Seguridad ---------- */
+.security-wrap {
+  background: var(--color-ink);
+  border-radius: 14px;
+  padding: clamp(36px, 5vw, 64px);
+  color: var(--color-bone);
+  position: relative;
+  overflow: hidden;
+}
+
+.security-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    45% 60% at 85% 0%,
+    rgba(var(--color-spark-rgb), 0.28),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.security-wrap .section-head {
+  position: relative;
+}
+
+.security-wrap .eyebrow {
+  color: #7fd0e4;
+}
+
+.security-wrap .section-head h2 {
+  color: var(--color-bone);
+}
+
+.security-wrap .section-head .lede {
+  color: rgba(250, 250, 249, 0.72);
+}
+
+.security-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.security-item {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 26px 24px;
+}
+
+.security-item .icon {
+  width: 26px;
+  height: 26px;
+  color: #7fd0e4;
+  margin-bottom: 14px;
+}
+
+.security-item h3 {
+  color: var(--color-bone);
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.security-item p {
+  color: rgba(250, 250, 249, 0.68);
+  font-size: 0.88rem;
+}
+
+/* ---------- CTA final ---------- */
+.cta-final {
+  text-align: center;
+}
+
+.cta-final h2 {
+  margin-bottom: 16px;
+}
+
+.cta-final .lede {
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.cta-final .hero-ctas {
+  justify-content: center;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid rgba(var(--color-ink-rgb), 0.1);
+  padding: 40px 0;
+}
+
+.site-footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.footer-brand img {
+  width: 22px;
+  height: 22px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 8px;
+  column-gap: 22px;
+  font-size: 0.85rem;
+  color: var(--color-graphite);
+}
+
+.footer-links a {
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+.footer-links a:hover {
+  color: var(--color-ink);
+}
+
+.footer-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-graphite);
+}
+
+/* ---------- Reveal on scroll ---------- */
+/* Mejora progresiva: visible por defecto. El estado oculto de partida solo
+   se activa si main.js llegó a correr y marcó <html class="js"> (ver
+   index.html) — así el contenido nunca depende de JS para mostrarse, solo
+   para animarse. */
+.reveal {
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+}
+
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+/* Mismo prefijo "html.js" que la regla de arriba: si no fuera así, esta
+   regla (una sola clase de más) empataría o perdería en especificidad
+   contra "html.js .reveal" según el orden de declaración, y el elemento
+   podía quedar con opacity:0 para siempre aunque ya tuviera .is-visible. */
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger.is-visible > * {
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 920px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-visual {
+    margin-top: 24px;
+  }
+  .feature-row,
+  .feature-row.reverse {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .feature-row.reverse .feature-copy {
+    order: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .main-nav {
+    position: fixed;
+    inset: 64px 16px auto 16px;
+    background: var(--color-white);
+    border: 1px solid rgba(var(--color-ink-rgb), 0.1);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    box-shadow: 0 24px 50px -20px rgba(var(--color-ink-rgb), 0.3);
+    transform: translateY(-12px);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.25s var(--ease),
+      transform 0.25s var(--ease);
+  }
+  .main-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  .nav-links .btn {
+    margin-top: 6px;
+  }
+  .nav-toggle {
+    display: inline-flex;
+  }
+  .hero {
+    padding-top: 140px;
+  }
+  .device-phone {
+    display: none;
+  }
+  section {
+    padding: 64px 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-ctas .btn {
+    width: 100%;
+  }
+}
