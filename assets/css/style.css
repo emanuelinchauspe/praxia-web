@@ -673,6 +673,7 @@ section[id] {
 .feature-copy p {
   color: var(--color-text-muted);
   margin-bottom: 18px;
+  max-width: 62ch;
 }
 
 .feature-list {
