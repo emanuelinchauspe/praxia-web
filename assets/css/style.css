@@ -756,6 +756,98 @@ section[id] {
   border-radius: 999px;
 }
 
+/* ---------- Precios ----------
+   Tres planes que solo difieren en cantidad de profesionales. El destacado
+   usa el mismo lenguaje de ficha que las capturas: solapa mono y sombra
+   dura, en vez de un badge flotante. */
+.pricing {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px 28px;
+  background: var(--color-white);
+  border: 1px solid rgba(var(--color-ink-rgb), 0.14);
+}
+
+.plan h3 {
+  font-size: 1.35rem;
+}
+
+.plan-for {
+  margin-top: 4px;
+  color: var(--color-text-muted);
+}
+
+.plan-price {
+  margin: 24px 0 6px;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.plan-currency,
+.plan-per {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--color-text-muted);
+}
+
+.plan-note {
+  margin-bottom: 28px;
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+}
+
+.plan .btn {
+  margin-top: auto;
+}
+
+.plan-featured {
+  border-color: var(--color-ink);
+  box-shadow: 7px 7px 0 rgba(var(--color-ink-rgb), 0.18);
+}
+
+.plan-featured .ficha-tag {
+  left: -1px;
+}
+
+.plan-includes {
+  max-width: 860px;
+  margin: 64px auto 0;
+}
+
+.plan-includes h3 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.plan-includes .feature-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 40px;
+}
+
+.pricing-fine {
+  max-width: 60ch;
+  margin: 40px auto 0;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
 /* ---------- Seguridad ---------- */
 /* Bloque oscuro con una textura fina de líneas diagonales — el mismo
    recurso que un papel de seguridad de recetario o formulario oficial,
@@ -962,11 +1054,19 @@ html.js .reveal.is-visible {
   .feature-row.reverse .ficha {
     margin-top: 0;
   }
+  .pricing {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 440px;
+    gap: 44px;
+  }
+  .plan-includes .feature-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
-/* El menú completo necesita ~800px; por debajo de 900 se pisaba con el logo
-   y el botón "Pedí una demo" quedaba cortado. */
-@media (max-width: 900px) {
+/* El menú completo necesita ~850px; por debajo de eso se pisa con el logo
+   y el botón "Pedí una demo" queda cortado. */
+@media (max-width: 980px) {
   .main-nav {
     position: fixed;
     inset: 64px 16px auto 16px;
