@@ -504,146 +504,18 @@ section[id] {
 }
 
 /* ---------- Dolor / gancho: receta ----------
-   El diagnóstico de siempre (turnos que se pisan, fichas que se pierden...)
-   se presenta como una receta médica real, con su indicación: Praxia. Es
-   una ficha más del mismo sistema visual (esquina cortada, sombra dura),
-   pero a tamaño de documento y con reglón horizontal como el papel de un
-   recetario, en vez de una grilla de cards. */
+   Foto de una receta médica real: el diagnóstico del consultorio y la
+   indicación, Praxia. */
 .receta {
-  width: min(640px, 100%);
-  margin: 0 auto;
-}
-
-.receta-shape {
-  padding: clamp(28px, 4vw, 44px) clamp(26px, 5vw, 48px);
-  background-image: repeating-linear-gradient(
-    rgba(var(--color-ink-rgb), 0.05) 0px,
-    rgba(var(--color-ink-rgb), 0.05) 1px,
-    transparent 1px,
-    transparent 34px
-  );
-}
-
-.receta-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding-bottom: 18px;
-  margin-bottom: 22px;
-  border-bottom: 1px solid rgba(var(--color-ink-rgb), 0.16);
-}
-
-.receta-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
-  color: var(--color-graphite);
-}
-
-.receta-brand img {
-  width: 18px;
-  height: 18px;
-}
-
-.receta-date {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--color-graphite);
-}
-
-.receta-field {
-  margin-bottom: 22px;
-}
-
-.receta-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--color-graphite);
-  margin-bottom: 6px;
-}
-
-.receta-value {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-}
-
-.receta-dx-list {
-  list-style: none;
   margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
+  border: 1px solid rgba(var(--color-ink-rgb), 0.12);
+  box-shadow: 0 30px 60px -40px rgba(var(--color-ink-rgb), 0.45);
+  overflow: hidden;
 }
 
-.receta-dx-list li {
-  font-style: italic;
-  color: var(--color-ink);
-  font-size: 0.98rem;
-  line-height: 1.5;
-}
-
-.receta-rx {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  padding: 22px 0;
-  margin-bottom: 24px;
-  border-top: 1px solid rgba(var(--color-ink-rgb), 0.16);
-  border-bottom: 1px solid rgba(var(--color-ink-rgb), 0.16);
-}
-
-.receta-rx-symbol {
-  font-family: var(--font-mono);
-  font-size: 2.2rem;
-  line-height: 1;
-  color: var(--color-spark);
-  flex: none;
-}
-
-.receta-indication p {
-  font-size: 1rem;
-}
-
-.receta-indication p + p {
-  margin-top: 6px;
-  color: var(--color-graphite);
-  font-size: 0.92rem;
-}
-
-.receta-foot {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  position: relative;
-  min-height: 52px;
-}
-
-.receta-sign-line {
-  width: 150px;
-  height: 1px;
-  background: rgba(var(--color-ink-rgb), 0.4);
-}
-
-.receta-sign-label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--color-graphite);
-}
-
-.receta-stamp {
-  width: 52px;
-  height: 52px;
-  color: var(--color-spark);
-  opacity: 0.82;
-  mix-blend-mode: multiply;
-  transform: rotate(-9deg);
-  position: absolute;
-  right: 4px;
-  top: -6px;
+.receta img {
+  width: 100%;
+  height: auto;
 }
 
 /* ---------- Features (alternadas con captura) ---------- */
@@ -1003,13 +875,6 @@ html.js .reveal.is-visible {
   .security-list {
     grid-template-columns: 1fr;
     column-gap: 0;
-  }
-  .receta-rx {
-    flex-direction: column;
-    gap: 8px;
-  }
-  .receta-stamp {
-    display: none;
   }
 }
 

@@ -5,16 +5,8 @@
   var navToggle = document.getElementById('nav-toggle');
   var mainNav = document.getElementById('main-nav');
   var yearEl = document.getElementById('year');
-  var recetaDateEl = document.getElementById('receta-date');
 
   if (yearEl) yearEl.textContent = new Date().getFullYear();
-  if (recetaDateEl) {
-    recetaDateEl.textContent = new Date().toLocaleDateString('es-AR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-  }
 
   // Header sólido + blur recién después de scrollear un poco, no desde el pixel 0.
   function onScroll() {
