@@ -965,7 +965,9 @@ html.js .reveal.is-visible {
   }
 }
 
-@media (max-width: 760px) {
+/* El menú completo necesita ~800px; por debajo de 900 se pisaba con el logo
+   y el botón "Pedí una demo" quedaba cortado. */
+@media (max-width: 900px) {
   .main-nav {
     position: fixed;
     inset: 64px 16px auto 16px;
@@ -1000,6 +1002,9 @@ html.js .reveal.is-visible {
   .nav-toggle {
     display: inline-flex;
   }
+}
+
+@media (max-width: 760px) {
   .hero {
     padding-top: 120px;
   }
