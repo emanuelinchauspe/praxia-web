@@ -748,6 +748,13 @@ section[id] {
   margin-bottom: 16px;
 }
 
+.specialty-note {
+  max-width: 60ch;
+  margin: 48px auto 0;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
 .specialty-card:hover .ficha-tag {
   background: var(--color-spark);
 }
