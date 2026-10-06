@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <script>
+      document.documentElement.classList.add('js');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pedí tu demo — Praxia</title>
+    <meta
+      name="description"
+      content="Contanos cómo trabaja tu consultorio y te mostramos Praxia con el módulo de tu especialidad. 30 días gratis, sin tarjeta."
+    />
+    <meta name="theme-color" content="#1b2a3a" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/demo.css" />
+  </head>
+  <body>
+    <header class="site-header" id="site-header">
+      <div class="container">
+        <a href="index.html" class="brand">
+          <img src="assets/img/praxia-icon.svg" alt="" width="30" height="30" />
+          Praxia
+        </a>
+        <a class="back-link" href="index.html">Volver al sitio</a>
+      </div>
+    </header>
+
+    <main class="lead-page">
+      <div class="container lead-grid">
+        <aside class="lead-aside">
+          <h1>Pedí tu demo.</h1>
+          <p class="lede">
+            Cuatro preguntas rápidas sobre tu consultorio y te mostramos Praxia con el módulo que te
+            corresponde.
+          </p>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 30 días gratis, sin tarjeta</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Armamos tu clínica y cargamos tus pacientes</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Sin permanencia</li>
+          </ul>
+          <p class="lead-alt">
+            ¿Preferís escribirnos directo?
+            <a href="https://wa.me/message/32RX4Y3TNNZ4O1" target="_blank" rel="noreferrer">WhatsApp</a>
+          </p>
+        </aside>
+
+        <form id="lead-form" class="lead-form" action="lead.php" method="post" novalidate>
+          <div class="lead-progress" aria-hidden="true"><span id="lead-progress-bar"></span></div>
+          <p class="lead-count" id="lead-count" aria-live="polite"></p>
+
+          <fieldset class="step" data-step="especialidad">
+            <legend>¿Cuál es tu especialidad?</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="especialidad" value="odontologia" required /><span class="option-key">A</span><span class="option-text">Odontología</span></label>
+              <label class="option"><input type="radio" name="especialidad" value="kinesiologia" /><span class="option-key">B</span><span class="option-text">Kinesiología</span></label>
+              <label class="option"><input type="radio" name="especialidad" value="otra" /><span class="option-key">C</span><span class="option-text">Otra especialidad</span></label>
+            </div>
+            <div class="field field-other" id="field-otra">
+              <label for="especialidad_otra">¿Cuál?</label>
+              <input type="text" id="especialidad_otra" name="especialidad_otra" maxlength="60" placeholder="Ej.: nutrición, psicología, clínica médica" />
+            </div>
+          </fieldset>
+
+          <fieldset class="step" data-step="profesionales">
+            <legend>¿Cuántos profesionales atienden pacientes?</legend>
+            <p class="step-hint">Recepción no cuenta: va incluida en todos los planes.</p>
+            <div class="options">
+              <label class="option"><input type="radio" name="profesionales" value="1" required /><span class="option-key">A</span><span class="option-text">Solo yo</span></label>
+              <label class="option"><input type="radio" name="profesionales" value="2-4" /><span class="option-key">B</span><span class="option-text">De 2 a 4</span></label>
+              <label class="option"><input type="radio" name="profesionales" value="5-8" /><span class="option-key">C</span><span class="option-text">De 5 a 8</span></label>
+              <label class="option"><input type="radio" name="profesionales" value="9+" /><span class="option-key">D</span><span class="option-text">9 o más</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="step" data-step="hoy">
+            <legend>¿Cómo organizan hoy turnos y fichas?</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="hoy" value="papel" required /><span class="option-key">A</span><span class="option-text">Agenda y fichas en papel</span></label>
+              <label class="option"><input type="radio" name="hoy" value="planilla" /><span class="option-key">B</span><span class="option-text">Excel o Google Sheets</span></label>
+              <label class="option"><input type="radio" name="hoy" value="whatsapp" /><span class="option-key">C</span><span class="option-text">WhatsApp y memoria</span></label>
+              <label class="option"><input type="radio" name="hoy" value="sistema" /><span class="option-key">D</span><span class="option-text">Ya uso otro sistema</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="step" data-step="cuando">
+            <legend>¿Cuándo te gustaría empezar?</legend>
+            <div class="options">
+              <label class="option"><input type="radio" name="cuando" value="ya" required /><span class="option-key">A</span><span class="option-text">Lo antes posible</span></label>
+              <label class="option"><input type="radio" name="cuando" value="mes" /><span class="option-key">B</span><span class="option-text">Dentro de este mes</span></label>
+              <label class="option"><input type="radio" name="cuando" value="meses" /><span class="option-key">C</span><span class="option-text">En los próximos meses</span></label>
+              <label class="option"><input type="radio" name="cuando" value="mirando" /><span class="option-key">D</span><span class="option-text">Por ahora, solo estoy mirando</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="step" data-step="datos">
+            <legend>¿A quién le escribimos?</legend>
+            <p class="step-hint">Te contactamos por WhatsApp en horario hábil.</p>
+            <div class="fields">
+              <div class="field">
+                <label for="nombre">Nombre y apellido</label>
+                <input type="text" id="nombre" name="nombre" autocomplete="name" maxlength="80" required />
+              </div>
+              <div class="field">
+                <label for="consultorio">Consultorio o clínica</label>
+                <input type="text" id="consultorio" name="consultorio" autocomplete="organization" maxlength="80" required />
+              </div>
+              <div class="field">
+                <label for="ciudad">Ciudad</label>
+                <input type="text" id="ciudad" name="ciudad" autocomplete="address-level2" maxlength="60" required />
+              </div>
+              <div class="field">
+                <label for="whatsapp">WhatsApp</label>
+                <input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="Ej.: 11 2345 6789" required />
+              </div>
+              <div class="field field-wide">
+                <label for="email">Email <span class="optional">(opcional)</span></label>
+                <input type="email" id="email" name="email" autocomplete="email" maxlength="120" />
+              </div>
+              <!-- Trampa para bots: invisible para personas, los bots la completan. -->
+              <div class="field-trap" aria-hidden="true">
+                <label for="website">No completar</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+              </div>
+            </div>
+            <p class="privacy-note">Usamos estos datos solo para contactarte por Praxia. No los compartimos.</p>
+          </fieldset>
+
+          <p class="lead-error" id="lead-error" role="alert"></p>
+
+          <div class="lead-nav">
+            <button type="button" class="btn btn-secondary" id="lead-back">Atrás</button>
+            <button type="submit" class="btn btn-primary btn-lg" id="lead-next">Enviar</button>
+          </div>
+          <p class="lead-hint-keys" aria-hidden="true">Teclas A–D para elegir · Enter para seguir</p>
+        </form>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <a href="index.html" class="footer-brand">
+          <img src="assets/img/praxia-icon.svg" alt="" width="22" height="22" />
+          Praxia
+        </a>
+        <nav class="footer-links">
+          <a href="index.html#precios">Precios</a>
+          <a href="index.html#seguridad">Seguridad</a>
+          <a href="mailto:soporte@manuchoit.com.ar">soporte@manuchoit.com.ar</a>
+        </nav>
+        <span class="footer-meta">© <span id="year"></span> Praxia</span>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/demo.js" defer></script>
+  </body>
+</html>

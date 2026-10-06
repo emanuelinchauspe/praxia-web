@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <script>
+      document.documentElement.classList.add('js');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Recibimos tus datos — Praxia</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#1b2a3a" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/demo.css" />
+  </head>
+  <body>
+    <header class="site-header" id="site-header">
+      <div class="container">
+        <a href="index.html" class="brand">
+          <img src="assets/img/praxia-icon.svg" alt="" width="30" height="30" />
+          Praxia
+        </a>
+        <a class="back-link" href="index.html">Volver al sitio</a>
+      </div>
+    </header>
+
+    <main class="thanks-page">
+      <!-- ==================== CONFIRMACIÓN ==================== -->
+      <!-- Dos caminos según lo que contestó en el formulario (lo decide lead.php):
+           "demo" = varios profesionales → videollamada 1:1 antes de la prueba;
+           "prueba" = un profesional o todavía mirando → directo a la prueba guiada.
+           Sin JS se ve el camino "demo", que sirve para los dos. -->
+      <section class="thanks-hero">
+        <div class="container">
+          <p class="thanks-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Recibimos tus datos
+          </p>
+          <h1 data-ruta="demo">Coordinemos tu demo.</h1>
+          <h1 data-ruta="prueba" hidden>Armemos tu prueba de 30 días.</h1>
+          <p class="lede" data-ruta="demo">
+            Te escribimos por WhatsApp en horario hábil para elegir día y hora. Son 30 minutos por
+            videollamada, con el módulo de tu especialidad y tus casos reales.
+          </p>
+          <p class="lede" data-ruta="prueba" hidden>
+            Te escribimos por WhatsApp en horario hábil. Nosotros armamos tu clínica y cargamos tus
+            pacientes: vos solo empezás a usarla. Gratis, sin tarjeta.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary btn-lg" href="https://wa.me/message/32RX4Y3TNNZ4O1" target="_blank" rel="noreferrer">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.5 8.5 0 01-12.4 7.55L4 20l1.05-4.42A8.5 8.5 0 1121 11.5z" stroke-linejoin="round"/></svg>
+              Adelantate y escribinos
+            </a>
+            <a class="btn btn-secondary btn-lg" href="index.html#funcionalidades">Ver funcionalidades</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== QUÉ SIGUE ==================== -->
+      <section class="thanks-section">
+        <div class="container">
+          <h2>Qué sigue.</h2>
+          <ol class="next-steps" data-ruta="demo">
+            <li>
+              <span class="next-num">01</span>
+              <h3>Te escribimos</h3>
+              <p>Por WhatsApp, el mismo día o el siguiente hábil, para coordinar la videollamada.</p>
+            </li>
+            <li>
+              <span class="next-num">02</span>
+              <h3>Demo de 30 minutos</h3>
+              <p>Agenda, historia clínica, caja y el módulo de tu especialidad, con cómo trabajan hoy.</p>
+            </li>
+            <li>
+              <span class="next-num">03</span>
+              <h3>30 días gratis</h3>
+              <p>Si te sirve, armamos tu clínica, cargamos tus pacientes y te mostramos cómo usarla.</p>
+            </li>
+          </ol>
+          <ol class="next-steps" data-ruta="prueba" hidden>
+            <li>
+              <span class="next-num">01</span>
+              <h3>Te escribimos</h3>
+              <p>Por WhatsApp, para pedirte tu lista de pacientes si la tenés en Excel o Google Sheets.</p>
+            </li>
+            <li>
+              <span class="next-num">02</span>
+              <h3>Armamos tu clínica</h3>
+              <p>Cargamos tus pacientes y dejamos todo listo con el módulo de tu especialidad.</p>
+            </li>
+            <li>
+              <span class="next-num">03</span>
+              <h3>Puesta en marcha</h3>
+              <p>Una videollamada corta para mostrarte cómo usarla, y arrancan tus 30 días gratis.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ==================== MIENTRAS TANTO ==================== -->
+      <section class="thanks-section thanks-shots">
+        <div class="container">
+          <h2>Mientras tanto, así se ve.</h2>
+          <div class="shots-grid">
+            <div class="ficha">
+              <span class="ficha-tag">NÚCLEO · AGENDA</span>
+              <div class="ficha-shape">
+                <div class="shot-wrap">
+                  <img class="shot" src="assets/img/screenshots/recortes/agenda.png" alt="Agenda semanal de Praxia" loading="lazy" />
+                  <div class="shot-placeholder" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+            <div class="ficha">
+              <span class="ficha-tag" id="module-tag">NÚCLEO · H. CLÍNICA</span>
+              <div class="ficha-shape">
+                <div class="shot-wrap">
+                  <img class="shot" id="module-shot" src="assets/img/screenshots/recortes/historia-clinica.png" alt="Historia clínica del paciente en Praxia" loading="lazy" />
+                  <div class="shot-placeholder" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== OBJECIONES ==================== -->
+      <section class="thanks-section">
+        <div class="container faq-wrap">
+          <div>
+            <h2>Lo que suelen preguntarnos.</h2>
+            <p class="lede">Si te queda otra duda, escribinos y la vemos en la demo.</p>
+          </div>
+          <div class="faq">
+            <details>
+              <summary>¿Tengo que instalar algo?</summary>
+              <p>No. Praxia funciona en el navegador, desde la computadora y desde el celular, con el mismo diseño.</p>
+            </details>
+            <details>
+              <summary>¿Qué pasa con los pacientes que ya tengo?</summary>
+              <p>Si los tenés en Excel o Google Sheets, los cargamos nosotros antes de que empieces. En el plan Profesional también migramos las prestaciones.</p>
+            </details>
+            <details>
+              <summary>¿Mis datos y los de mis pacientes están seguros?</summary>
+              <p>Cada clínica está aislada: ninguna puede ver datos de otra. El ingreso tiene doble factor de autenticación y hay backup diario cifrado de la base y de los archivos, fuera del proveedor principal.</p>
+            </details>
+            <details>
+              <summary>¿Cuánto cuesta y cómo se paga?</summary>
+              <p>Desde USD 20 por mes según cuántos profesionales atienden; recepción va sin cargo. Se abona en pesos al tipo de cambio oficial del Banco Nación del día de facturación, por transferencia o Mercado Pago. Los primeros 30 días son gratis y sin tarjeta.</p>
+            </details>
+            <details>
+              <summary>¿Hay permanencia mínima?</summary>
+              <p>No. Te das de baja cuando quieras. Si pagás el año, llevás 2 meses sin cargo.</p>
+            </details>
+            <details>
+              <summary>¿Y si mi especialidad no tiene módulo propio?</summary>
+              <p>Praxia funciona igual con el núcleo común: agenda, historia clínica, recordatorios, presupuestos, caja y analítica.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <a href="index.html" class="footer-brand">
+          <img src="assets/img/praxia-icon.svg" alt="" width="22" height="22" />
+          Praxia
+        </a>
+        <nav class="footer-links">
+          <a href="index.html#precios">Precios</a>
+          <a href="index.html#seguridad">Seguridad</a>
+          <a href="mailto:soporte@manuchoit.com.ar">soporte@manuchoit.com.ar</a>
+        </nav>
+        <span class="footer-meta">© <span id="year"></span> Praxia</span>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var ruta = params.get('ruta') === 'prueba' ? 'prueba' : 'demo';
+        document.querySelectorAll('[data-ruta]').forEach(function (el) {
+          el.hidden = el.getAttribute('data-ruta') !== ruta;
+        });
+
+        // La segunda captura muestra el módulo de su especialidad.
+        var modules = {
+          odontologia: ['odontograma.png', 'MÓDULO · ODONTOLOGÍA', 'Odontograma de un paciente en Praxia'],
+          kinesiologia: ['fkt.png', 'MÓDULO · KINESIOLOGÍA', 'Sesiones de FKT de un paciente en Praxia'],
+        };
+        var mod = modules[params.get('esp')];
+        if (mod) {
+          document.getElementById('module-shot').src = 'assets/img/screenshots/recortes/' + mod[0];
+          document.getElementById('module-shot').alt = mod[2];
+          document.getElementById('module-tag').textContent = mod[1];
+        }
+
+        // Píxel de Meta: todavía no está instalado. Cuando se agregue, esto
+        // reporta el lead y distingue los calificados para optimizar campañas.
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'Lead');
+          if (ruta === 'demo') window.fbq('trackCustom', 'LeadCalificado');
+        }
+      })();
+    </script>
+    <script src="assets/js/main.js" defer></script>
+  </body>
+</html>
