@@ -17,6 +17,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="assets/js/pixel.js"></script>
     <link rel="stylesheet" href="assets/css/demo.css" />
   </head>
   <body>
@@ -202,11 +203,14 @@
           document.getElementById('module-tag').textContent = mod[1];
         }
 
-        // Píxel de Meta: todavía no está instalado. Cuando se agregue, esto
-        // reporta el lead y distingue los calificados para optimizar campañas.
-        if (typeof window.fbq === 'function') {
-          window.fbq('track', 'Lead');
-          if (ruta === 'demo') window.fbq('trackCustom', 'LeadCalificado');
+        // Píxel de Meta (pixel.js): el lead y, si va a demo 1:1, el calificado.
+        // Mismo eventID que manda lead.php por la API de conversiones, así Meta
+        // los cuenta una vez. Sin eid (recarga, visita directa) no se reporta.
+        var eid = params.get('eid');
+        if (typeof window.fbq === 'function' && eid && /^[a-f0-9]{16}$/.test(eid)) {
+          var data = { content_category: ruta, especialidad: params.get('esp') || '' };
+          window.fbq('track', 'Lead', data, { eventID: eid });
+          if (ruta === 'demo') window.fbq('trackCustom', 'LeadCalificado', data, { eventID: eid + '-q' });
         }
       })();
     </script>

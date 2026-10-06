@@ -152,10 +152,12 @@
         });
       })
       .then(function (data) {
-        // Solo datos no personales en la URL: el camino y la especialidad.
+        // Solo datos no personales en la URL: el camino, la especialidad y el
+        // id del evento para que el píxel no duplique el lead (ver pixel.js).
         var esp = checkedValue('especialidad');
         window.location.href =
-          'gracias.html?ruta=' + encodeURIComponent(data.ruta) + '&esp=' + encodeURIComponent(esp);
+          'gracias.html?ruta=' + encodeURIComponent(data.ruta) + '&esp=' + encodeURIComponent(esp) +
+          (data.eid ? '&eid=' + encodeURIComponent(data.eid) : '');
       })
       .catch(function () {
         sending = false;

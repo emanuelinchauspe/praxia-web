@@ -4,6 +4,10 @@
 // Responde JSON cuando lo pide el fetch de demo.js (Accept: application/json);
 // si llega por POST común (navegador sin JS) redirige a gracias.html.
 // El "camino" (demo 1:1 o prueba guiada) se decide acá, no en el navegador.
+//
+// Si existe praxia-lead-config.php (fuera del repo, ver README) también manda
+// el lead a la API de conversiones de Meta, con el mismo eventID que dispara
+// el píxel en gracias.html para que Meta no lo cuente dos veces.
 
 declare(strict_types=1);
 
@@ -15,15 +19,16 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 $wantsJson = strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false;
 
-function respond(bool $ok, string $ruta = '', string $esp = '', string $error = '', int $status = 200): void
+function respond(bool $ok, string $ruta = '', string $esp = '', string $error = '', int $status = 200, string $eventId = ''): void
 {
     global $wantsJson;
     if ($wantsJson) {
         http_response_code($status);
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(['ok' => $ok, 'ruta' => $ruta, 'error' => $error]);
+        echo json_encode(['ok' => $ok, 'ruta' => $ruta, 'error' => $error, 'eid' => $eventId]);
     } elseif ($ok) {
-        header('Location: gracias.html?ruta=' . rawurlencode($ruta) . '&esp=' . rawurlencode($esp), true, 303);
+        header('Location: gracias.html?ruta=' . rawurlencode($ruta) . '&esp=' . rawurlencode($esp)
+            . ($eventId !== '' ? '&eid=' . rawurlencode($eventId) : ''), true, 303);
     } else {
         http_response_code($status);
         header('Content-Type: text/plain; charset=utf-8');
@@ -150,4 +155,100 @@ if (!$sent) {
     respond(false, '', '', 'No se pudo enviar', 500);
 }
 
-respond(true, $ruta, $data['especialidad']);
+$eventId = bin2hex(random_bytes(8));
+send_meta_lead($eventId, $ruta, $data);
+
+respond(true, $ruta, $data['especialidad'], '', 200, $eventId);
+
+/** Config de Meta: fuera de la carpeta pública si se puede, y nunca en git. */
+function meta_config(): ?array
+{
+    foreach ([dirname(__DIR__) . '/praxia-lead-config.php', __DIR__ . '/praxia-lead-config.php'] as $path) {
+        if (is_file($path)) {
+            $config = require $path;
+            if (is_array($config) && !empty($config['meta_pixel_id']) && !empty($config['meta_access_token'])) {
+                return $config;
+            }
+        }
+    }
+    return null;
+}
+
+/** Normalizado y hasheado como pide Meta (SHA-256 en minúsculas, sin espacios). */
+function meta_hash(string $value): string
+{
+    return hash('sha256', mb_strtolower(trim($value)));
+}
+
+/** Teléfono en formato internacional sin "+": 54 + número sin el 0 inicial. */
+function meta_phone(string $raw): string
+{
+    $digits = preg_replace('/\D/', '', $raw) ?? '';
+    if (strpos($digits, '54') === 0) {
+        return $digits;
+    }
+    return '54' . ltrim($digits, '0');
+}
+
+/**
+ * Lead (y LeadCalificado si va a demo 1:1) por la API de conversiones.
+ * Nunca frena el formulario: si Meta no responde, el lead ya llegó por email.
+ */
+function send_meta_lead(string $eventId, string $ruta, array $data): void
+{
+    $config = meta_config();
+    if ($config === null || !function_exists('curl_init')) {
+        return;
+    }
+
+    $nameParts = preg_split('/\s+/', $data['nombre'], 2) ?: [];
+    $userData = array_filter([
+        'em' => $data['email'] !== '' ? [meta_hash($data['email'])] : null,
+        'ph' => [hash('sha256', meta_phone($data['whatsapp']))],
+        'fn' => isset($nameParts[0]) ? [meta_hash($nameParts[0])] : null,
+        'ln' => isset($nameParts[1]) ? [meta_hash($nameParts[1])] : null,
+        'ct' => [meta_hash(str_replace(' ', '', $data['ciudad']))],
+        'country' => [meta_hash('ar')],
+        'client_ip_address' => $_SERVER['REMOTE_ADDR'] ?? null,
+        'client_user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? null,
+        'fbp' => $_COOKIE['_fbp'] ?? null,
+        'fbc' => $_COOKIE['_fbc'] ?? null,
+    ]);
+
+    $base = [
+        'event_time' => time(),
+        'action_source' => 'website',
+        'event_source_url' => $_SERVER['HTTP_REFERER'] ?? 'https://praxiaweb.manuchoit.com.ar/demo.html',
+        'user_data' => $userData,
+        'custom_data' => [
+            'content_category' => $ruta,
+            'especialidad' => $data['especialidad'],
+            'profesionales' => $data['profesionales'],
+        ],
+    ];
+    $events = [$base + ['event_name' => 'Lead', 'event_id' => $eventId]];
+    if ($ruta === 'demo') {
+        $events[] = $base + ['event_name' => 'LeadCalificado', 'event_id' => $eventId . '-q'];
+    }
+
+    $payload = ['data' => $events, 'access_token' => $config['meta_access_token']];
+    if (!empty($config['meta_test_event_code'])) {
+        $payload['test_event_code'] = $config['meta_test_event_code'];
+    }
+
+    $version = $config['meta_graph_version'] ?? 'v26.0';
+    $ch = curl_init("https://graph.facebook.com/{$version}/{$config['meta_pixel_id']}/events");
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($payload),
+        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 4,
+    ]);
+    $response = curl_exec($ch);
+    $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    if ($status !== 200) {
+        error_log('Praxia lead: la API de conversiones respondió ' . $status . ': ' . substr((string) $response, 0, 300));
+    }
+}

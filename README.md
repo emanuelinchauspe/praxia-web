@@ -57,3 +57,16 @@ Todavía no está conectado a ningún hosting. Al ser 100% estático, sirve cual
 opción simple: cPanel (subdominio o `/`), Netlify, Vercel o GitHub Pages apuntando
 a la raíz de este repo. Se dejó así a propósito para no decidir dominio/subdominio
 final de antemano.
+
+## Píxel de Meta y API de conversiones
+
+- `assets/js/pixel.js`: el píxel (PageView en todas las páginas y "Contact" al
+  tocar un link de WhatsApp). Con `PIXEL_ID` vacío no carga nada.
+- `gracias.html` dispara `Lead` y, si el pedido va a demo 1:1, `LeadCalificado`.
+- `lead.php` manda esos mismos eventos desde el servidor (API de conversiones),
+  con el mismo `event_id`, así Meta los deduplica. Solo si existe
+  `praxia-lead-config.php` en el servidor (copia de
+  `praxia-lead-config.example.php` con el ID y el token). Ese archivo no va al
+  repo: se sube a mano a Ferozo, una carpeta arriba de la pública si se puede.
+- Datos personales: viajan a Meta hasheados (SHA-256), como pide la API. En la
+  URL de `gracias.html` solo van el camino, la especialidad y el id del evento.
