@@ -109,6 +109,30 @@ if (count($hits) >= MAX_PER_HOUR) {
 $hits[] = $now;
 @file_put_contents($rateFile, implode("\n", $hits));
 
+// Origen de la visita (origen.js): parámetros utm del anuncio y sitio de origen.
+$origen = [];
+foreach (['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'referrer', 'landing'] as $key) {
+    $value = field('origen_' . $key, 100);
+    if ($value !== '') {
+        $origen[$key] = $value;
+    }
+}
+if (isset($origen['utm_source'])) {
+    $origenLabel = implode(' · ', array_filter([
+        $origen['utm_source'] . (isset($origen['utm_medium']) ? ' / ' . $origen['utm_medium'] : ''),
+        isset($origen['utm_campaign']) ? 'campaña: ' . $origen['utm_campaign'] : null,
+        isset($origen['utm_term']) ? 'conjunto: ' . $origen['utm_term'] : null,
+        isset($origen['utm_content']) ? 'anuncio: ' . $origen['utm_content'] : null,
+    ]));
+} elseif (isset($origen['referrer'])) {
+    $origenLabel = 'desde ' . $origen['referrer'];
+} else {
+    $origenLabel = 'directo (sin anuncio ni sitio de origen)';
+}
+if (isset($origen['landing'])) {
+    $origenLabel .= ' · entró por ' . $origen['landing'];
+}
+
 $espLabel = $especialidades[$data['especialidad']];
 if ($data['especialidad'] === 'otra' && $data['especialidad_otra'] !== '') {
     $espLabel = 'Otra: ' . $data['especialidad_otra'];
@@ -130,6 +154,8 @@ $body = implode("\n", [
     "Profesionales:  {$profesionales[$data['profesionales']]}",
     "Hoy usan:       {$hoy[$data['hoy']]}",
     "Quiere empezar: {$cuando[$data['cuando']]}",
+    '',
+    "Origen:         {$origenLabel}",
     '',
     'Enviado: ' . date('d/m/Y H:i'),
 ]);

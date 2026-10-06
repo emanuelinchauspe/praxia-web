@@ -535,3 +535,85 @@
     padding: 56px 0;
   }
 }
+
+/* ---------- Política de privacidad ---------- */
+.legal-page {
+  padding: 132px 0 96px;
+}
+
+.legal {
+  max-width: 760px;
+}
+
+.legal-updated {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  margin-bottom: 14px;
+}
+
+.legal h1 {
+  margin-bottom: 18px;
+}
+
+.legal .lede {
+  max-width: none;
+  margin-bottom: 12px;
+}
+
+.legal h2 {
+  font-size: 1.35rem;
+  margin: 40px 0 12px;
+}
+
+.legal p,
+.legal li {
+  color: var(--color-text-muted);
+}
+
+.legal p + p,
+.legal ul + p {
+  margin-top: 12px;
+}
+
+.legal ul {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 8px;
+  line-height: 1.6;
+}
+
+.legal strong {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+
+.legal a {
+  color: var(--color-ink);
+  text-decoration-color: var(--color-spark);
+  text-underline-offset: 3px;
+}
+
+.legal code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+.legal-notice {
+  font-size: 0.85rem;
+  border-left: 2px solid var(--color-spark);
+  padding-left: 14px;
+}
+
+.privacy-note a {
+  color: inherit;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 920px) {
+  .legal-page {
+    padding: 104px 0 64px;
+  }
+}

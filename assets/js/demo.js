@@ -134,6 +134,17 @@
     }
   }
 
+  // Origen de la visita (ver origen.js): viaja con el pedido para saber de qué
+  // anuncio vino cada lead.
+  function withOrigen(data) {
+    var origen = window.praxiaOrigen;
+    if (!origen) return data;
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'referrer', 'landing'].forEach(function (k) {
+      if (origen[k]) data.append('origen_' + k, origen[k]);
+    });
+    return data;
+  }
+
   function submit() {
     if (sending) return;
     sending = true;
@@ -142,7 +153,7 @@
 
     fetch(form.action, {
       method: 'POST',
-      body: new FormData(form),
+      body: withOrigen(new FormData(form)),
       headers: { Accept: 'application/json' },
     })
       .then(function (res) {
