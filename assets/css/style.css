@@ -1017,6 +1017,26 @@ section[id] {
   color: var(--color-ink);
 }
 
+.footer-social {
+  display: flex;
+  gap: 14px;
+}
+
+.footer-social a {
+  display: inline-flex;
+  color: var(--color-text-muted);
+  transition: color 0.2s var(--ease);
+}
+
+.footer-social a:hover {
+  color: var(--color-ink);
+}
+
+.footer-social svg {
+  width: 20px;
+  height: 20px;
+}
+
 .footer-meta {
   font-family: var(--font-mono);
   font-size: 0.75rem;
