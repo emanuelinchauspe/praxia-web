@@ -1,0 +1,6 @@
+# Dominio viejo y www → praxiagestion.com.ar (301), conservando la ruta.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^(praxiaweb\.manuchoit\.com\.ar|www\.praxiagestion\.com\.ar)$ [NC]
+  RewriteRule ^(.*)$ https://praxiagestion.com.ar/$1 [R=301,L]
+</IfModule>
