@@ -11,8 +11,8 @@
 
 declare(strict_types=1);
 
-const LEAD_TO = 'soporte@manuchoit.com.ar';
-const LEAD_FROM = 'soporte@manuchoit.com.ar';
+const LEAD_TO = 'soporte@praxiagestion.com.ar';
+const LEAD_FROM = 'soporte@praxiagestion.com.ar';
 const MAX_PER_HOUR = 5;
 
 date_default_timezone_set('America/Argentina/Buenos_Aires');
@@ -244,7 +244,7 @@ function send_meta_lead(string $eventId, string $ruta, array $data): void
     $base = [
         'event_time' => time(),
         'action_source' => 'website',
-        'event_source_url' => $_SERVER['HTTP_REFERER'] ?? 'https://praxiaweb.manuchoit.com.ar/demo.html',
+        'event_source_url' => $_SERVER['HTTP_REFERER'] ?? 'https://praxiagestion.com.ar/demo.html',
         'user_data' => $userData,
         'custom_data' => [
             'content_category' => $ruta,
