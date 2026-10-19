@@ -1,2 +1,4 @@
 # Credenciales de la API de conversiones de Meta (ver README)
 praxia-lead-config.php
+# Carpeta del subdominio app.praxiagestion.com.ar, dentro de public_html en Ferozo: el deploy de la web no la toca.
+app/
