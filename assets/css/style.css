@@ -1437,6 +1437,19 @@ html.js .reveal.is-visible {
     max-height: none;
     width: 220vw;
   }
+  /* Video de 30 s: en el celular es el vertical 9:16, a la altura de la
+     pantalla y sin el scroll que necesitan las capturas. */
+  .video-box {
+    width: auto;
+    max-height: none;
+    overflow: visible;
+  }
+  .video-full {
+    width: auto;
+    height: min(86svh, calc(92vw * 16 / 9));
+    aspect-ratio: 9 / 16;
+    margin: 0 auto;
+  }
   section {
     padding: 64px 0;
   }

@@ -125,6 +125,11 @@
   var videoBox = document.getElementById('video-box');
   var videoFull = document.getElementById('video-full');
   var videoOpen = document.getElementById('video-open');
+  // En el celular va la versión vertical (1080x1920 de Remotion); el <source>
+  // ya la elige por media query, acá solo se cambia el póster.
+  if (videoFull && window.matchMedia('(max-width: 760px)').matches) {
+    videoFull.poster = 'assets/video/praxia-30s-vertical-poster.jpg';
+  }
   if (videoBox && videoOpen && typeof videoBox.showModal === 'function') {
     videoOpen.addEventListener('click', function () {
       videoBox.showModal();
@@ -142,7 +147,7 @@
     });
   } else if (videoOpen) {
     videoOpen.addEventListener('click', function () {
-      window.location.href = 'assets/video/praxia-30s.mp4';
+      window.location.href = videoFull ? videoFull.currentSrc || 'assets/video/praxia-30s.mp4' : 'assets/video/praxia-30s.mp4';
     });
   }
 
