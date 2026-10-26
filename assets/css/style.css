@@ -1095,6 +1095,13 @@ section[id] {
   color: var(--color-text-muted);
 }
 
+.footer-legal {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
 /* ---------- Reveal on scroll ---------- */
 /* Mejora progresiva: visible por defecto. El estado oculto de partida solo
    se activa si main.js llegó a correr y marcó <html class="js"> (ver
