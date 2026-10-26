@@ -297,57 +297,30 @@ p {
   color: var(--color-ink);
 }
 
-/* ---------- Hero ---------- */
-/* Foto de fondo: una receta de Praxia Clinic recién escrita, con el
-   escritorio libre a la izquierda para el título. El velo claro solo cubre
-   esa mitad, para que el texto se lea sin lavar la receta. */
+/* ---------- Hero ----------
+   Título a la izquierda y, a la derecha, el loop de fichas de la app
+   (Remotion: PraxiaHero). El video va en un panel tinta con la esquina
+   cortada de la ficha: el borde del video es el borde del panel, así no
+   hay que empatar el fondo del video con el de la página. */
 .hero {
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  align-items: center;
-  min-height: min(100svh, 880px);
-  padding: 140px 0 96px;
+  padding: 132px 0 88px;
   overflow: hidden;
 }
 
-/* La caja se extiende 6vw más allá del borde derecho (el hero la recorta)
-   para correr la hoja hacia la derecha y que no pise el texto, sin perder
-   la mano del médico. */
-.hero-photo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -2;
-  width: calc(100% + 6vw);
-  max-width: none;
-  height: 100%;
-  object-fit: cover;
-  object-position: right center;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    90deg,
-    rgba(250, 250, 249, 0.94) 0%,
-    rgba(250, 250, 249, 0.8) 30%,
-    rgba(250, 250, 249, 0) 48%
-  );
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 56px;
 }
 
 .hero-copy {
   max-width: 540px;
 }
 
-/* Tope más bajo que el h1 global para que "Todo tu consultorio," entre en
-   una línea sin pisar la receta de la foto. */
 .hero-copy h1 {
   margin-bottom: 22px;
-  font-size: clamp(2.5rem, 1.5rem + 2.8vw, 3.4rem);
+  font-size: clamp(2.5rem, 1.5rem + 2.8vw, 3.6rem);
 }
 
 .hero-copy .lede {
@@ -356,16 +329,81 @@ p {
   color: var(--color-text-muted);
 }
 
+.hero-reel {
+  position: relative;
+  filter: drop-shadow(10px 10px 0 rgba(var(--color-ink-rgb), 0.18));
+}
+
+.hero-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--color-ink);
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
+}
+
+.hero-pause {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(250, 250, 249, 0.14);
+  color: var(--color-bone);
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease);
+}
+
+.hero-pause:hover {
+  background: rgba(250, 250, 249, 0.26);
+}
+
+.hero-pause:focus-visible {
+  outline: 2px solid var(--color-spark);
+  outline-offset: 2px;
+}
+
+.hero-pause svg {
+  width: 16px;
+  height: 16px;
+}
+
+.hero-pause .i-play,
+.hero-pause.is-paused .i-pause {
+  display: none;
+}
+
+.hero-pause.is-paused .i-play {
+  display: block;
+}
+
+.btn-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.btn-play svg {
+  width: 14px;
+  height: 14px;
+}
+
 .hero-ctas {
   display: flex;
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
   margin-bottom: 28px;
-}
-
-.hero .btn-secondary {
-  background: rgba(250, 250, 249, 0.7);
 }
 
 /* ---------- Ficha: el motivo del sitio ----------
@@ -1072,27 +1110,235 @@ html.js .reveal.is-visible {
   transition-delay: calc(var(--i, 0) * 70ms);
 }
 
+/* ---------- Marca de la clínica ----------
+   Un presupuesto de ejemplo que toma el color que elijas: la única
+   interacción de la sección, y muestra exactamente lo que hace la función. */
+.brand-band {
+  background: var(--color-white);
+}
+
+.brand-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 72px;
+}
+
+.brand-copy h2 {
+  margin-bottom: 18px;
+}
+
+.brand-copy .lede {
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+.swatches {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.swatch {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 2px solid var(--color-white);
+  border-radius: 50%;
+  background: var(--sw);
+  box-shadow: 0 0 0 1px rgba(var(--color-ink-rgb), 0.2);
+  cursor: pointer;
+  transition: box-shadow 0.2s var(--ease);
+}
+
+.swatch[aria-checked="true"] {
+  box-shadow: 0 0 0 2px var(--sw);
+}
+
+.swatch:focus-visible {
+  outline: 2px solid var(--color-spark);
+  outline-offset: 3px;
+}
+
+.swatch-hint {
+  margin-left: 4px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.brand-doc {
+  --clinic: var(--color-ink);
+}
+
+.doc {
+  padding: 28px 28px 20px;
+  font-size: 0.9rem;
+}
+
+.doc-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 3px solid var(--clinic);
+  transition: border-color 0.3s var(--ease);
+}
+
+.doc-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--clinic);
+  color: var(--color-white);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background-color 0.3s var(--ease);
+}
+
+.doc-clinic {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--clinic);
+  transition: color 0.3s var(--ease);
+}
+
+.doc-meta {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.doc-title {
+  margin: 20px 0 12px;
+  font-weight: 500;
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.doc-table th,
+.doc-table td {
+  padding: 8px 0;
+  text-align: left;
+  border-bottom: 1px solid rgba(var(--color-ink-rgb), 0.1);
+}
+
+.doc-table thead th {
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.doc-table th:last-child,
+.doc-table td:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.doc-table td:nth-child(2) {
+  width: 3.5em;
+}
+
+.doc-table tfoot th,
+.doc-table tfoot td {
+  border-bottom: 0;
+  padding-top: 12px;
+  font-weight: 600;
+  color: var(--clinic);
+  transition: color 0.3s var(--ease);
+}
+
+.doc-foot {
+  margin: 22px 0 0;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  text-align: right;
+}
+
+/* ---------- Módulos opcionales ----------
+   Más chicos y sin captura: se suman a la especialidad, no la reemplazan. */
+.addons {
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(var(--color-ink-rgb), 0.12);
+}
+
+.addons-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 24px;
+  margin-bottom: 24px;
+}
+
+.addons-head p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.addon-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.addon {
+  padding: 24px 24px 22px;
+  background: var(--color-white);
+  border: 1px solid rgba(var(--color-ink-rgb), 0.14);
+  border-left: 3px solid var(--color-spark);
+}
+
+.addon h4 {
+  margin-bottom: 8px;
+  font-size: 1.15rem;
+}
+
+.addon p {
+  margin: 0 0 16px;
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+}
+
+.addons-price {
+  max-width: 60ch;
+  margin: 32px auto 0;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Video de 30 s ---------- */
+.video-full {
+  display: block;
+  width: min(1100px, 94vw);
+  height: auto;
+  background: #000;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.5);
+}
+
 /* ---------- Responsive ---------- */
 /* En pantallas angostas no hay escritorio libre para el título: el texto va
    arriba sobre fondo liso y la foto abajo, recortada sobre la receta. */
 @media (max-width: 920px) {
-  .hero {
-    flex-direction: column;
-    align-items: stretch;
-    min-height: 0;
-    padding-bottom: 0;
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 44px;
   }
-  .hero::before {
-    display: none;
+  .brand-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
   }
-  .hero-photo {
-    position: static;
-    order: 2;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    margin-top: 48px;
-    object-position: right center;
+  .addon-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
   .feature-row,
   .feature-row.reverse {
@@ -1157,13 +1403,12 @@ html.js .reveal.is-visible {
 
 @media (max-width: 760px) {
   .hero {
-    padding-top: 120px;
+    padding-top: 112px;
+    padding-bottom: 56px;
   }
-  /* Recorte vertical: la receta llena el ancho del teléfono y se lee el
-     diagnóstico, en vez de quedar chica sobre el escritorio. */
-  .hero-photo {
+  /* En el celular el video es el recorte 4:5 (hero-mobile.mp4). */
+  .hero-video {
     aspect-ratio: 4 / 5;
-    object-position: 82% center;
   }
   /* A 375px la pantalla completa de la app es ilegible: se muestra al doble
      de ancho y se recorre con scroll. */

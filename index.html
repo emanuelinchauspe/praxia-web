@@ -70,28 +70,44 @@
   <main id="top">
     <!-- ==================== HERO ==================== -->
     <section class="hero" id="producto">
-      <img
-        class="hero-photo"
-        src="assets/img/hero-receta.jpg"
-        width="1280"
-        height="720"
-        fetchpriority="high"
-        alt="Receta médica de Praxia Clinic recién escrita a mano. Diagnóstico: desorganización, falta de seguimiento de la historia clínica, alto ausentismo. Rp/ Praxia Clinic, uso diario, sin interrupciones."
-      />
-      <div class="container">
+      <div class="container hero-grid">
         <div class="hero-copy">
           <h1>Todo tu consultorio,<br />en un solo lugar.</h1>
           <p class="lede">
             Agenda, historia clínica, presupuestos y caja en un núcleo común, más el módulo de tu
-            especialidad: odontograma para odontología, sesiones de FKT para kinesiología. Sin papeles
-            sueltos ni planillas paralelas.
+            especialidad: odontograma para odontología, sesiones de FKT para kinesiología. Con el logo
+            y los colores de tu clínica.
           </p>
           <div class="hero-ctas">
             <a class="btn btn-primary btn-lg" href="demo.html">
               Pedí una demo
             </a>
-            <a class="btn btn-secondary btn-lg" href="#funcionalidades">Ver funcionalidades</a>
+            <button type="button" class="btn btn-secondary btn-lg btn-play" id="video-open" aria-haspopup="dialog">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+              Ver Praxia en 30 segundos
+            </button>
           </div>
+        </div>
+        <div class="hero-reel">
+          <video
+            class="hero-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            width="1200"
+            height="900"
+            poster="assets/video/hero-poster.jpg"
+            aria-label="Fichas de la app de Praxia que se apilan: agenda, recordatorios por WhatsApp, historia clínica, odontograma y sesiones de kinesiología."
+          >
+            <source src="assets/video/hero-mobile.mp4" type="video/mp4" media="(max-width: 760px)" />
+            <source src="assets/video/hero.mp4" type="video/mp4" />
+          </video>
+          <button type="button" class="hero-pause" id="hero-pause" aria-label="Pausar animación">
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor"/></svg>
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+          </button>
         </div>
       </div>
     </section>
@@ -154,10 +170,11 @@
           <div class="feature-row reveal">
             <div class="feature-copy">
               <h3>Un turno nuevo, en dos clics.</h3>
-              <p>Agenda semanal por profesional, con sala de espera en vivo para que recepción sepa quién llegó y quién sigue.</p>
+              <p>Agenda semanal por profesional, con el color de cada uno a la vista y sala de espera en vivo para que recepción sepa quién llegó y quién sigue.</p>
               <ul class="feature-list">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Turnos por profesional, sin pisarse</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Estados con color: pendiente, confirmado, atendido, ausente</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Turnos por profesional, sin pisarse, aunque compartan consultorio</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Turnos fijos: el mismo día y horario cada semana, cada 2 o cada 4</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Turnos grupales con cupo por horario</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Sala de espera en tiempo real</li>
               </ul>
             </div>
@@ -177,11 +194,11 @@
           <div class="feature-row reverse reveal">
             <div class="feature-copy">
               <h3>Menos ausencias, con un clic.</h3>
-              <p>Recordatorio de turno por WhatsApp sin salir de la agenda: el mensaje ya viene armado con el día, la hora y el profesional.</p>
+              <p>Recordatorio de turno por WhatsApp sin salir de la agenda: el mensaje ya viene armado con el día, la hora y el profesional. Si el paciente no confirma a tiempo, el turno se libera para otro.</p>
               <ul class="feature-list">
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Un clic, sin copiar y pegar</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Turnos sin confirmar: avisás que se liberan y ofrecés reprogramar</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Queda registrado quién lo mandó y cuándo</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Menos huecos vacíos en la agenda del día</li>
               </ul>
             </div>
             <div class="ficha">
@@ -200,9 +217,10 @@
           <div class="feature-row reveal">
             <div class="feature-copy">
               <h3>La ficha completa del paciente, siempre a mano.</h3>
-              <p>Evoluciones, fotos, adjuntos y consentimientos en una sola ficha, con la pestaña de tu especialidad al lado.</p>
+              <p>Evoluciones, fotos, adjuntos y consentimientos en una sola ficha, con saldo, próximo turno y profesional a cargo arriba de todo.</p>
               <ul class="feature-list">
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Evoluciones que no se editan después de guardadas</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Control después del alta: te avisa cuándo citar al paciente a los 3 o 6 meses</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Consentimientos firmados en pantalla o a distancia por enlace</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Odontograma o sesiones de FKT, según tu especialidad</li>
               </ul>
@@ -227,6 +245,7 @@
               <ul class="feature-list">
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Presupuestos en PDF, listos para enviar</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Cobros por obra social o particular</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Pacientes compartidos: cada pago va a la prestación de quien la hizo</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Liquidación automática por profesional</li>
               </ul>
             </div>
@@ -272,6 +291,7 @@
               <p>Desde el celular del profesional o de recepción: agenda del día, ficha del paciente y sala de espera, con el mismo diseño que en la computadora.</p>
               <ul class="feature-list">
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Funciona en el navegador, sin instalar nada</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Con su ícono en la pantalla de inicio del celular</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Pensada para usarse de pie, entre paciente y paciente</li>
               </ul>
             </div>
@@ -283,6 +303,48 @@
                   <div class="shot-placeholder" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5" y="2" width="14" height="20" rx="2"/></svg></div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MARCA DE LA CLÍNICA ==================== -->
+    <section id="tu-marca" class="brand-band">
+      <div class="container brand-grid">
+        <div class="brand-copy reveal">
+          <h2>Con la marca de tu clínica, no la nuestra.</h2>
+          <p class="lede">Cargás tu logo y elegís un color: la app, los presupuestos en PDF, los consentimientos para firmar y el portal de tus pacientes salen con tu identidad. Praxia queda al pie, como el programa que es.</p>
+          <div class="swatches" role="radiogroup" aria-label="Probá un color de clínica">
+            <button type="button" class="swatch" role="radio" aria-checked="true" style="--sw:#1b2a3a" data-color="#1b2a3a" aria-label="Tinta"></button>
+            <button type="button" class="swatch" role="radio" aria-checked="false" style="--sw:#2e7d6b" data-color="#2e7d6b" aria-label="Verde"></button>
+            <button type="button" class="swatch" role="radio" aria-checked="false" style="--sw:#7a3e6a" data-color="#7a3e6a" aria-label="Ciruela"></button>
+            <button type="button" class="swatch" role="radio" aria-checked="false" style="--sw:#a8452b" data-color="#a8452b" aria-label="Ladrillo"></button>
+            <span class="swatch-hint">Probá un color</span>
+          </div>
+        </div>
+        <div class="ficha brand-doc reveal" id="brand-doc" style="--clinic:#1b2a3a">
+          <span class="ficha-tag">PRESUPUESTO · PDF</span>
+          <div class="ficha-shape">
+            <div class="doc">
+              <div class="doc-head">
+                <span class="doc-logo" aria-hidden="true">CS</span>
+                <div>
+                  <p class="doc-clinic">Consultorio Sur</p>
+                  <p class="doc-meta">Odontología integral · Mar del Plata</p>
+                </div>
+              </div>
+              <p class="doc-title">Presupuesto para Lucía Gómez</p>
+              <table class="doc-table">
+                <thead><tr><th scope="col">Prestación</th><th scope="col">Pieza</th><th scope="col">Importe</th></tr></thead>
+                <tbody>
+                  <tr><td>Consulta y diagnóstico</td><td>—</td><td>$ 25.000</td></tr>
+                  <tr><td>Obturación compuesta</td><td>16</td><td>$ 68.000</td></tr>
+                  <tr><td>Tratamiento de conducto</td><td>36</td><td>$ 210.000</td></tr>
+                </tbody>
+                <tfoot><tr><th scope="row" colspan="2">Total</th><td>$ 303.000</td></tr></tfoot>
+              </table>
+              <p class="doc-foot">Hecho con Praxia</p>
             </div>
           </div>
         </div>
@@ -334,17 +396,45 @@
             </div>
             <div class="body">
               <h3>Sesiones de FKT y evolución por sesión</h3>
-              <p>Plan de sesiones con diagnóstico y objetivo, evolución en cada una y ausencias a la vista para reprogramar sin perder la serie.</p>
+              <p>Plan de sesiones con diagnóstico y objetivo, evolución en cada una y ausencias a la vista para reprogramar sin perder la serie. Filtrá la cartera por diagnóstico y atendé a varios pacientes en el mismo horario.</p>
               <div class="chip-row">
                 <span class="chip">Sesiones de FKT</span>
                 <span class="chip">Evolución por sesión</span>
-                <span class="chip">Cartera de pacientes</span>
+                <span class="chip">Pacientes por diagnóstico</span>
+                <span class="chip">Turnos grupales</span>
               </div>
             </div>
           </div>
         </div>
 
-        <p class="specialty-note reveal">¿Tu especialidad todavía no tiene módulo? Praxia funciona igual con el núcleo común: agenda, historia clínica, presupuestos y caja.</p>
+        <div class="addons reveal">
+          <div class="addons-head">
+            <h3>Módulos opcionales</h3>
+            <p>Se activan cuando los necesitás y se suman a la mensualidad. Funcionan con cualquier especialidad.</p>
+          </div>
+          <div class="addon-grid">
+            <article class="addon">
+              <h4>Stock</h4>
+              <p>Insumos con stock mínimo, compras y consumo automático por prestación. Cada insumo puede ser de la clínica o de un profesional, con su propio saldo.</p>
+              <div class="chip-row">
+                <span class="chip">Aviso de stock bajo</span>
+                <span class="chip">Descuento por prestación</span>
+                <span class="chip">Stock por profesional</span>
+              </div>
+            </article>
+            <article class="addon">
+              <h4>Entrenamiento</h4>
+              <p>Rutinas por día armadas desde plantillas, registro de series con reps y kilos, y la evolución de cada ejercicio en un gráfico. El paciente ve su rutina desde el celular, con el logo de tu clínica.</p>
+              <div class="chip-row">
+                <span class="chip">Plantillas de rutina</span>
+                <span class="chip">Registro de cargas</span>
+                <span class="chip">Portal del paciente</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <p class="specialty-note reveal">¿Tu especialidad todavía no tiene módulo? Praxia funciona igual con el núcleo común: agenda, historia clínica, presupuestos y caja. En psicología, por ejemplo, los turnos fijos resuelven la agenda de cada semana.</p>
       </div>
     </section>
 
@@ -364,7 +454,7 @@
             <p class="plan-price"><span class="plan-currency">USD</span> 20 <span class="plan-per">/ mes</span></p>
             <p class="plan-note">¿Atienden 2 o 3? Sumás USD 10 por profesional.</p>
             <ul class="feature-list plan-services">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Migración de pacientes desde Excel</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Migración de pacientes desde Excel o KinesioPlus</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Puesta en marcha por videollamada</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Soporte por email</li>
             </ul>
@@ -403,12 +493,15 @@
           <ul class="feature-list">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Núcleo completo: agenda, historia clínica, presupuestos, caja y analítica</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> El módulo de tu especialidad</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Logo y colores de tu clínica en la app, los PDF y la firma de consentimientos</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Admin sin cargo si no atiende, y recepción incluida en cada plan</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Recordatorios por WhatsApp desde tu propio número, con el mensaje ya armado y sin costo por mensaje</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Backup diario cifrado</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Acceso desde la computadora y el celular</li>
           </ul>
         </div>
+
+        <p class="addons-price reveal">Los módulos opcionales, Stock y Entrenamiento, se suman a cualquier plan. Te pasamos el precio con la demo.</p>
 
         <div class="referral reveal">
           <h3>Recomendá Praxia y ganan los dos.</h3>
@@ -455,6 +548,20 @@
               <div>
                 <h3>Historia clínica auditable</h3>
                 <p>Las evoluciones y los cambios importantes no se editan en silencio: queda registro de quién hizo qué y cuándo.</p>
+              </div>
+            </div>
+            <div class="security-item" style="--i:4">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2" stroke-linecap="round"/></svg>
+              <div>
+                <h3>Sesión que se cierra sola</h3>
+                <p>Después de 8 horas sin uso, la sesión se cierra. La computadora compartida de recepción no queda abierta para cualquiera.</p>
+              </div>
+            </div>
+            <div class="security-item" style="--i:5">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5"/><path d="M16 11l2 2 3.5-3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div>
+                <h3>Cada uno ve lo suyo</h3>
+                <p>Recepción maneja turnos y cobros sin entrar a la historia clínica. Cada turno, prestación y pago queda a nombre de quien atiende.</p>
               </div>
             </div>
           </div>
@@ -509,6 +616,15 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
     </button>
     <img class="lightbox-img" id="lightbox-img" alt="" />
+  </dialog>
+
+  <dialog class="lightbox video-box" id="video-box" aria-label="Praxia en 30 segundos">
+    <button type="button" class="lightbox-close" id="video-close" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+    </button>
+    <video class="video-full" id="video-full" controls playsinline preload="none" width="1280" height="720" poster="assets/video/praxia-30s-poster.jpg">
+      <source src="assets/video/praxia-30s.mp4" type="video/mp4" />
+    </video>
   </dialog>
 
   <script src="assets/js/main.js"></script>

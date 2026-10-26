@@ -88,6 +88,76 @@
     });
   }
 
+  // Hero: loop de fichas en video. En celular cambia el póster al recorte
+  // 4:5; con "reducir movimiento" no arranca solo y queda el póster. El
+  // botón permite pausarlo siempre (WCAG 2.2.2, movimiento de más de 5 s).
+  var heroVideo = document.querySelector('.hero-video');
+  var heroPause = document.getElementById('hero-pause');
+  if (heroVideo) {
+    if (window.matchMedia('(max-width: 760px)').matches) {
+      heroVideo.poster = 'assets/video/hero-mobile-poster.jpg';
+    }
+    var setPaused = function (paused) {
+      if (!heroPause) return;
+      heroPause.classList.toggle('is-paused', paused);
+      heroPause.setAttribute('aria-label', paused ? 'Reproducir animación' : 'Pausar animación');
+    };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      heroVideo.removeAttribute('autoplay');
+      heroVideo.pause();
+      setPaused(true);
+    }
+    if (heroPause) {
+      heroPause.addEventListener('click', function () {
+        if (heroVideo.paused) {
+          heroVideo.play();
+          setPaused(false);
+        } else {
+          heroVideo.pause();
+          setPaused(true);
+        }
+      });
+    }
+  }
+
+  // "Ver Praxia en 30 segundos": el video con sonido se carga recién al
+  // abrir el diálogo y se frena al cerrarlo.
+  var videoBox = document.getElementById('video-box');
+  var videoFull = document.getElementById('video-full');
+  var videoOpen = document.getElementById('video-open');
+  if (videoBox && videoOpen && typeof videoBox.showModal === 'function') {
+    videoOpen.addEventListener('click', function () {
+      videoBox.showModal();
+      videoFull.play();
+      if (window.fbq) window.fbq('trackCustom', 'VerVideo');
+    });
+    document.getElementById('video-close').addEventListener('click', function () {
+      videoBox.close();
+    });
+    videoBox.addEventListener('click', function (e) {
+      if (e.target === videoBox) videoBox.close();
+    });
+    videoBox.addEventListener('close', function () {
+      videoFull.pause();
+    });
+  } else if (videoOpen) {
+    videoOpen.addEventListener('click', function () {
+      window.location.href = 'assets/video/praxia-30s.mp4';
+    });
+  }
+
+  // "Con la marca de tu clínica": cada muestra pinta el presupuesto de ejemplo.
+  var brandDoc = document.getElementById('brand-doc');
+  var swatches = document.querySelectorAll('.swatch');
+  swatches.forEach(function (sw) {
+    sw.addEventListener('click', function () {
+      brandDoc.style.setProperty('--clinic', sw.getAttribute('data-color'));
+      swatches.forEach(function (other) {
+        other.setAttribute('aria-checked', String(other === sw));
+      });
+    });
+  });
+
   // Capturas todavía no generadas (o que fallen al cargar): mostramos el
   // placeholder con ícono en vez de un ícono de imagen rota del navegador.
   document.querySelectorAll('.shot').forEach(function (img) {
