@@ -1,0 +1,46 @@
+# Publica el sitio en Ferozo (public_html) por FTP en cada push a main.
+#
+# Secrets del repo: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD.
+# Variables opcionales del repo:
+#   FTP_PROTOCOL   ftps (default) o ftp si el servidor no acepta TLS
+#   FTP_SERVER_DIR carpeta del sitio vista desde el login FTP (default public_html/)
+#
+# La acción guarda en el servidor qué archivos subió (.ftp-deploy-sync-state.json)
+# y solo borra los que ella misma subió y ya no están en el repo: nunca toca
+# app/ (la app vive en public_html/app) ni praxia-lead-config.php.
+name: Publicar en Ferozo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ferozo
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Subir por FTP
+        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            .gstack/**
+            .claude/**
+            app/**
+            README.md
+            praxia-lead-config.php
+            praxia-lead-config.example.php
