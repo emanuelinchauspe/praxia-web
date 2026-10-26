@@ -23,3 +23,8 @@
 </IfModule>
 
 DirectoryIndex index.html
+
+# Estado del deploy por FTP (.github/workflows/deploy.yml): no se sirve.
+<Files ".ftp-deploy-sync-state.json">
+  Require all denied
+</Files>
